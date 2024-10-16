@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crave</title>
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"  />
+    <link rel="shortcut icon" href="weblogo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+ <div id="all">
+    <div id="scroll"></div>
+    <header id="bar">
+        <div class="logo">
+
+            <img src="CRAVE.png" alt="">
+        </div>
+        <div class="nav">
+           
+            <a href="index.html">Home</a>
+            <a href="menu.html" id="menu"><b>Explore Our Menu</b></a>
+            <a href="about.html">About Us</a>
+            <a href="#contactid" >Contact Us</a>
+            
+        </div>
+        <div class="account" id="accountid">
+            <i class="fa-solid fa-circle-user"></i> &ensp;&ensp;&ensp;
+
+
+            <span id="cartbutton" onclick="clickon()">
+                <i class="fa-solid fa-cart-shopping" ></i>
+            </span>
+
+            
+        </div>
+    </header>
+    
+    <div class="location">
+            <p>
+                <i class="fa-solid fa-location-dot"></i> <select name="location" id="locationid"><option value="chitkara">Chitkara University</option> <option value="chandigarh">Chandigarh</option></select> <br>
+                <span id="sublocation"></span>
+            </p>
+            <p>
+                <select name="type" id="typeid"><option value="">Delivery</option> <option value="">Takeway</option></select>
+            </p>
+           
+    </div>
+<div class="banner">
+    <h1>Order your <br> Favourite Food here.</h1>
+    <p>Craving comfort food without leaving your couch? Our food delivery service brings the best of your city's culinary scene right to your doorstep. Enjoy delicious meals prepared by skilled chefs, delivered hot and fresh to satisfy your hunger. Order now and experience the convenience of hassle-free dining.</p>
+    <a href="#dishid">View Menu</a>
+</div>
+    <div class="offer" id="dishid">
+        <img src="offer1.jpg" alt="">
+        <img src="offer2.jpg" alt="">
+        <img src="offer3.jpg" alt="">
+        <img src="offer4.jpg" alt="">
+        <img src="offer5.jpg" alt="">
+    </div>
+<div class="dishes">
+    <div><img src="pizza.png" alt=""> <br>Pizza</div>
+    <div><img src="bathure.jpg" alt=""> <br>Chole Bhature</div>
+    <div><img src="biryani.jpg" alt=""> <br>Biryani</div>
+    <div><img src="burger.jpeg" alt=""> <br>Burger</div>
+    <div><img src="cake.jpg" alt=""> <br>Cakes</div>
+    <div><img src="dosaicon.jpg" alt=""> <br>Dosa</div>
+    <div><img src="idli.jpg" alt=""> <br>Idli</div>
+    <div><img src="kachori.jpg" alt=""> <br>Kachori</div>
+    <div><img src="parantha.jpg" alt=""> <br>Parantha</div>
+    <div><img src="pavbhaji.jpg" alt=""> <br>Pav Bhaji</div>
+    <div><img src="poha.jpg" alt=""> <br>Poha</div>
+    <div><img src="poori.jpg" alt=""> <br>Poori Sabzi</div>
+    <div><img src="salad.jpg" alt=""> <br>Salads</div>
+    <div><img src="samosa.jpg" alt=""> <br>Samosa</div>
+    <div><img src="shake.jpg" alt=""> <br>Shakes</div>   
+</div>
+<br>
+<h1 style="text-align: center; margin-top: 5%;">Trending Dishes for You!</h1> 
+<hr>
+    <div class="food">
+       
+        <div class="card">
+            <div class="img">
+                <img src="noodles.jpg" alt="" id="noodleimg">
+            </div>
+
+            <div class="cardtext">
+
+                <span class="info"><span>Veg Noodles</span> <span id="noodleprice">&#x20b9;120</span> </span> <br>
+
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.5/5</span> <span><i class="fa-solid fa-clock"></i> 20-25 mins</span> </span> <br>
+
+                The flavorful veg noodles were tossed with a variety of colorful vegetables and a savory sauce. <br> <br>
+
+                <span id="add">
+                    <button id="noodle" >Add to Cart</button> 
+                    <span> 
+                        Qty: <select name="" id="noodlequan"><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option>
+                        <option value="5">5</option></select>
+                    </span>
+                </span>
+
+            </div>
+        </div>
+
+        <div class="card">
+
+            <div class="img">
+                <img src="icecream.jpg" alt="">
+            </div>
+
+            <div class="cardtext">
+                <span class="info"><span>Vanilla IceCream</span> <span>&#x20b9;60</span> </span> <br>
+
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.1/5</span> <span><i class="fa-solid fa-clock"></i> 10-15 mins</span> </span> <br>
+
+                The creamy vanilla ice cream was topped with a dollop of homemade strawberry sauce. <br> <br>
+
+                <span id="add">
+                    <button id="icecream">Add to Cart</button> 
+                    <span> 
+                            Qty: <select name="" id="icequan"><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option><option value="5">5</option></select>
+                    </span>
+                </span>
+
+            </div>
+        </div>
+
+        <div class="card">
+
+            <div class="img">
+                <img src="dosadish.jpg" alt="">
+            </div>
+
+            <div class="cardtext">
+                <span class="info"><span>Dosa</span> <span>&#x20b9;180</span> </span><br> 
+
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.7/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br>
+
+                The crispy dosa was filled with a flavorful potato masala, making for a delicious and satisfying breakfast. <br> <br>
+
+                <span id="add">
+                    <button id="dosa">Add to Cart</button> 
+                    <span> 
+                        Qty: <select name="" id="dosaquan"><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option><option value="5">5</option></select>
+                    </span>
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="img">
+                <img src="bhaji.jpg" alt="">
+            </div>
+
+            <div class="cardtext">
+                <span class="info"><span>Pav Bhaji</span> <span>&#x20b9;150</span> </span><br>
+
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.2/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br> 
+
+                The spicy pav bhaji was served with soft buttered pav, perfect for a hearty meal. <br> <br>
+
+                <span id="add">
+                    <button id="pavbhaji">Add to Cart</button> 
+                    <span > 
+                        Qty: <select name="" id="pavquan"><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option><option value="5">5</option></select>
+                    </span>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="img">
+                <img src="honeychilli.jpg" alt="">
+            </div>
+
+            <div class="cardtext">
+                <span class="info"><span>Honey Chilli Potato</span> <span>&#x20b9;100</span> </span><br>
+
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.0/5</span> <span><i class="fa-solid fa-clock"></i> 15-20 mins</span> </span> <br>
+
+                The vibrant red color of the honey chilli potato was visually appealing, and the sweet and spicy flavors were a delightful combination. <br>
+
+                <span id="add">
+                    <button id="potato">Add to Cart</button> 
+                    <span>
+                        Qty: <select name="" id="honeyquan"><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option><option value="5">5</option></select>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <h1 style="text-align: center; margin-top: 5%;">Top Restaurants Near You!</h1> 
+    <hr>
+    <div class="rest">
+        <div class="card">
+            <div class="img">
+                <img src="healthywave.jpeg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>Healthy Wave</span> </span> <br>
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.5/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br>
+                A popular restaurant known for its fresh, nutritious dishes."
+            </div>
+        </div>
+        <div class="card">
+            <div class="img">
+                <img src="sherepunjab.jpeg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>Sher-e-Punjab</span> </span> <br>
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.2/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br>
+                Savor the rich and aromatic flavors of traditional Punjabi cuisine at Sher-e-Punjab.
+            </div>
+        </div>
+        <div class="card">
+            <div class="img">
+                <img src="lapino.jpg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>La-Pino's Pizza</span></span><br> 
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.0/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br>
+                La-Pino's Pizza is a popular pizzeria known for its delicious and customizable pies.
+            </div>
+        </div>
+        <div class="card">
+            <div class="img">
+                <img src="indianchaat.jpeg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>Indian Chaat Bhandaar</span></span><br>
+                <span class="info"><span><i class="fa-solid fa-star"></i>3.5/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br> 
+                Indulge in the vibrant and flavorful world of Indian street food at Indian Chaat Bhandaar.
+            </div>
+        </div>
+        <div class="card">
+            <div class="img">
+                <img src="chainagri.jpg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>Chai Nagri</span></span><br>
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.1/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br>
+                Relax and unwind in the cozy ambiance of Chai Nagri, a haven for tea lovers.
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="img">
+                <img src="bevcafe.jpeg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>Bev-Cafe</span></span> <br>
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.0/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br>
+                Bev-Cafe is a popular cafe known for its wide variety of beverages and snacks.
+            </div>
+        </div>
+        <div class="card">
+            <div class="img">
+                <img src="subway.jpg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>Subway</span></span> <br>
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.7/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br>
+                Create your own personalized sandwich with fresh ingredients at Subway.
+            </div>
+        </div>
+        <div class="card">
+            <div class="img">
+                <img src="venky.jpg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>Venky's</span></span><br> 
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.3/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br>
+                Experience the warm hospitality and delicious food at Venky's, a beloved local eatery.
+            </div>
+        </div>
+        <div class="card">
+            <div class="img">
+                <img src="dominos.jpg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>Dominos</span></span><br>
+                <span class="info"><span><i class="fa-solid fa-star"></i>4.8/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br> 
+                Order your favorite pizza from Domino's and enjoy a hassle-free dining experience at home.
+            </div>
+        </div>
+        <div class="card">
+            <div class="img">
+                <img src="grabngo.jpg" alt="">
+            </div>
+            <div class="cardtext">
+                <span class="info"><span>Grab n Go!</span> </span><br>
+                <span class="info"><span><i class="fa-solid fa-star"></i>3.4/5</span> <span><i class="fa-solid fa-clock"></i> 30-35 mins</span> </span> <br>
+                A refreshing selection of shakes and juices to quench your thirst and satisfy your sweet tooth.
+            </div>
+        </div>
+
+        
+        
+
+    </div>
+
+
+    <footer id="contactid">
+        <div class="newsletter">
+            <img src="CRAVE.png" alt="">
+            <p>Subscribe for the latest updates on new features and food services.</p>
+            <input type="email" name="" id="" placeholder="Enter Your Email"> <input type="button" value="Subscirbe" >
+        </div>
+
+        <div class="navfoot">
+            <a href="">Home</a> <br>
+            <a href="">Menu</a><br>
+            <a href="">About Us</a><br>
+            <a href="">Contact Us</a><br>
+            <a href="">Add Restraunt</a><br>
+        </div>
+
+        <div class="follow">
+            <b>Follow Us</b> <br>
+            <img src="facebook.png" alt=""> <a href="">Facebook </a><br>
+            <img src="instagram.png" alt=""> <a href="">Instagram </a><br>
+            <img src="linkedin.png" alt=""> <a href="">Linkedin </a><br>
+            <img src="twitter.png" alt=""> <a href="">Twitter </a><br>
+        </div>
+        
+    </footer>
+
+    <hr>
+    <div class="copyright">
+        © 2024 Crave. All Rights Reserved.
+    </div>
+    <div class="scrollup">
+        <a href="#scroll"><img src="arrow.png" alt=""></a>
+    </div>
+</div>
+</div>
+    <div class="cart" id="cartmain">
+        <div class="closecart">
+            <button id="close">x</button>
+        </div>
+        <div class="cartitems">   
+            <div class="tablehead" id="tablereset">
+                <table id="carttable">
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                    
+                </table>
+                <div id="empty">
+                    <b>
+                    Your Cart is Empty !</b>
+                </div>
+            </div>
+
+            <div class="note">
+                <input type="text" name="" id="" placeholder="Add a note for Restaurant or your Delivery Partner. . .">
+            </div>
+        </div>
+
+        <div class="checkout">
+                <hr>
+                <h3>Bill Summary</h3>
+                <p>Item Total <span id="billamount">&#x20b9; 0.00</span></p>
+                <p>GST and Restaurant Charges <span id="billtax">&#x20b9; 0.00</span></p>
+                <p>Delivery Partner Fee <span id="billdel">&#x20b9; 0.00</span></p>
+                <hr id="grandtotalline">
+                <p>Grand Total <span id="billtotal">&#x20b9; 0.00</span></p>
+            <br>
+                
+            <div class="payoptions">
+                <div class="upi">
+                    <fieldset>
+                    <legend>UPI</legend>
+                        <input type="radio" name="payoption" id="">&ensp;<img src="googlepay.svg" alt="">Google Pay  <br> <hr>
+                        <input type="radio" name="payoption" id="">&ensp;<img src="paypal.svg" alt="">Paypal <br>
+                    </fieldset>
+                </div> <br>
+                <div class="cards">
+                    <fieldset>
+                        <legend>CARDS</legend><i class="fa-solid fa-credit-card"></i>
+                        <a href="">Add Debit or Credit Card </a> <br>
+                    </fieldset>
+                </div> <br>
+                <div class="cod">
+                    <fieldset>
+                        <legend>PAY ON DELIVERY</legend>
+                        <input type="radio" name="payoption" id="">&ensp;<img src="cod.png" alt="">&ensp;Cash on Delivery
+                    </fieldset>
+                </div>
+            </div>
+            <br>
+                <button id="confirm" onclick="go()">Place my Order</button>
+        </div>
+        </div>
+        
+   
+    <script type="text/javascript" src="cravemenu.js"></script>
+</body>
+</html>

@@ -1,0 +1,947 @@
+*
+{
+    scroll-behavior: smooth;
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;  
+} 
+body
+{
+    background-color: #F9FCFB;
+    
+}
+.scrollup
+{
+    background-color: black;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 2%;
+    height: 4%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.scrollup img
+{
+    text-align: center;
+    width: 100%;
+}
+header
+{
+    display: flex;
+    align-items: center;
+    margin-top: 1%;
+    z-index: 4;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    box-shadow: 0px 1px 3px black;
+}
+.logo
+{
+    padding-left: 2%;
+    width: 14%;
+    text-align: center;
+}
+header img
+{
+    width: 80%; 
+}
+.nav
+{
+    width: 70%;
+    display: flex;
+    gap:5%;
+    padding:0.3%;
+}
+.nav a
+{
+    text-decoration: none;
+    color: black;
+    padding: 1%;
+}
+.nav #menu
+{
+    color: BLACK;
+    border: 2px solid BLACK;
+    padding: 1%;
+    transition: all ease 0.5s;
+}
+.nav #menu:hover
+{
+    background-color: BLACK;
+    color: white;
+    text-decoration: none;
+}
+.nav a:hover
+{
+    text-decoration:underline;
+}
+.login-signup
+{
+    width: 26%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 2%;
+}
+.login-signup #login
+{
+    color: white;
+    background-color: BLACK;
+    border:2px solid BLACK;
+    padding:2%;
+    border-radius: 2px;
+    width: 30%;
+    text-align: center;
+    font-size: 18px;
+    transition: all ease 0.5s;
+}
+.login-signup #login:hover 
+{
+    background-color:white;
+    
+    color: BLACK;
+}
+.login-signup i
+{
+    font-size: 36px;
+    color:BLACK;
+    cursor: pointer;
+}
+
+#userdrop
+{
+    position: absolute;
+    right: 2.5%;
+    top: 9%;
+    visibility: hidden;
+    width: 11%;
+    display: flex;
+    flex-direction: column;
+    
+}
+#userdrop button
+{
+    border: none;
+    text-align: right;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    font-size: 110%;
+    padding: 5%;
+}
+#userdrop button:hover
+{
+    color: black;
+    background-color: #F9FCFB;
+}
+#userdrop hr{
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    color: white;
+}
+
+.intro
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;   
+}
+.intro div
+{
+    text-align: center;
+    width: 80%;
+}
+.intro h1 span
+{
+    color: #fd5e53;
+}
+.intro a
+{
+    border: 2px solid BLACK;
+    background-color:BLACK;
+    
+    text-decoration: none;
+    color: white;
+    padding: 1%;
+    transition: all ease 0.5s;  
+}
+.intro a:hover{
+    background-color: white;
+    color: BLACK;
+}
+.slidecontainer
+{
+    overflow: hidden;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.track
+{
+    display: flex;
+    width: calc(250px*10);
+    place-items: center;
+    animation: slide 10s linear infinite;
+}
+.track:hover
+{
+    animation-play-state: paused;
+}
+.slide
+{
+    height: 200px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    perspective: 100px;
+
+}
+.slide img{
+    width: 800px;
+    height:100%;
+    transition: all 0.5s;
+    aspect-ratio: 3/2;
+
+}
+.slide img:hover{
+    transform: translateZ(10px);
+    z-index: 11;
+}
+@keyframes slide {
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(calc(-250px*5));
+    }
+    
+}
+.infosteps
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.infosteps #imgcng
+{
+    width: 35%;
+}
+.infosteps #imgcng img
+{
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px black;
+}
+
+.infosteps .align
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    gap: 16%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.infosteps #alignid p
+{
+    padding:2%;
+    width: 100%;
+    font-size: 20px;
+    cursor: pointer;
+    color: BLACK;
+}
+
+.infosteps #alignid2 p
+{
+    width: 100%;
+    padding: 2%;
+    font-size: 20px;
+    cursor: pointer;
+    color: BLACK; 
+}
+
+
+.orderbanner
+{
+    perspective: 1000px;
+    position: relative;
+    width: 100%;
+    height: 18rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 20px;  
+}
+.orderbanner .banner
+{
+    position: absolute;
+    z-index: 2;
+    width: 90%;
+    height: 90%;
+    transform-style: preserve-3d;
+    transition: all 1s ease;
+    
+}
+.orderbanner .banner:hover
+{
+    transform: rotateY(180deg);
+}
+.orderbanner .tran
+{
+    position: absolute;
+    z-index: -1;
+    width: 90%;
+    height: 90%;
+    background-color: #fd5e53d7;
+    transform: rotateZ(-2deg);
+    box-shadow: 0px 0px 5px #fd5e538c;
+    border: 2px solid #fd5e538c;
+}
+.orderbanner .banner .front
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+    background-color: #fd5e53;
+    color: white;
+    border: 2px solid #fd5e53;
+    box-shadow: 0px 0px 3px #fd5e53;  
+}
+.orderbanner .banner .back
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotateZ(2deg);
+    backface-visibility: hidden;
+    background-color: #fd5e53;
+    color: white;
+    border: 2px solid #fd5e53;
+    box-shadow: 0px 0px 3px #fd5e53;
+    transform: rotateY(180deg);
+}
+.orderbanner .banner .back .text
+{
+    width: 50%;
+}
+.orderbanner .banner .back .button
+{
+    width: 20%;
+}
+.orderbanner .banner .back a{
+    text-decoration: none;
+    width: 100%;
+    border: 2px solid white;
+    background-color: white;
+    color: #fd5e53;
+    padding: 3%; 
+    
+}
+
+.planinfo
+{
+    text-align: center;
+    margin-top: 5%; 
+}
+.planinfo .planlink
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.planinfo #yearly
+{
+    text-decoration: none;
+    color: #fd5e53;
+    border:2px solid #fd5e53;
+    
+    padding: 1%;  
+    width: 10%;
+    cursor: pointer;
+}
+.planinfo #monthly
+{
+    border: 2px solid #fd5e53;
+    background-color: #fd5e53;
+    text-decoration: none;
+    color: white;
+    padding: 1%;  
+    width: 10%; 
+    cursor: pointer;
+}
+.plancards
+{
+    margin-top: 1%; 
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+    line-height: 200%;   
+}
+.plancards h2, .plancards p
+{
+    text-align: center;
+}
+.plancards .basic
+{
+    border:  2px solid #fd5e53;
+    background-color: #fd5e53;
+    border: 2px solid #fd5e53;
+    color: white;
+    width: 10%;
+    height: 300px;
+    overflow: hidden;
+    padding: 1%;
+    transition: all 0.5s ease;
+    box-shadow: 0px 0px 10px black;
+}
+.plancards .basic:hover
+{
+    width: 20%;
+    height: 420px;
+    font-size: 18px;
+    
+}
+.plancards .basic a
+{
+    text-decoration: none;
+    color: #fd5e53;
+    background-color: white;
+    border: 2px solid #fd5e53;
+    padding: 4%;
+    transition: all ease 0.5s;
+}
+.plancards .basic a:hover
+{
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+.plancards .business
+{
+    border:  2px solid #fd5e53;
+    background-color: #fd5e53;
+    color: white;
+    width: 15%;
+    border: 2px solid #fd5e53;
+    height: 300px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    padding: 1%; 
+    box-shadow: 0px 0px 10px black;     
+}
+.plancards .business:hover
+{
+    width: 20%;
+    font-size: 18px;
+    height: 420px;
+}
+.plancards .business a
+{
+    text-decoration: none;
+    color: #fd5e53;
+    background-color: white;
+    border: 2px solid #fd5e53;
+    padding: 4%;
+    transition: all ease 0.5s;
+}
+.plancards .business a:hover
+{ 
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+}
+.plancards .enterprise
+{
+    border:  2px solid #fd5e53;
+    background-color: #fd5e53;
+    border: 2px solid #fd5e53;
+    color: white;
+    width: 18%;
+    overflow: hidden;
+    height: 300px;
+    padding: 1%;
+    transition: all 1s ease;
+    box-shadow: 0px 0px 10px black;
+}
+.plancards .enterprise:hover
+{
+    width: 20%;
+    font-size: 18px;
+    height: 420px;
+}
+.plancards .enterprise a
+{
+    text-decoration: none;
+    background-color: white;
+    color: #fd5e53;
+    padding: 4%;
+    transition: all ease 0.5s;
+}
+.plancards .enterprise a:hover
+{
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+.section
+{
+    display: flex;
+    justify-content: space-around;
+    padding: 2%;
+    font-size: 20px;
+    transition: all ease 1s;
+}
+.section .text
+{
+    width: 40%;
+    padding: 1%;
+}
+.section .text b
+{
+    font-size: 40px;
+    color: #fd5e53;
+    text-decoration: underline;
+}
+.section .text a
+{
+    text-decoration: none;
+    background-color: #fd5e53;
+    border: 2px solid #fd5e53;
+    color: white;
+    padding: 1.5%;
+    transition: all ease 0.5s;
+}
+.section .text a:hover
+{
+    background-color: white;
+    color: #fd5e53;
+    box-shadow: 0px 0px 10px black;
+}
+.section .ladder
+{
+    width: 50%;  
+}
+.section .ladder .container
+{
+    padding: 2%;
+    color: white;
+    margin-top: 4.5%;
+    position:absolute;  
+}
+
+.section .ladder:hover .container
+{
+    position: relative; 
+}
+.section .ladder #contain1
+{
+    transform: rotateZ(-2deg);
+    background-color: #fd5e53;
+    
+    box-shadow: 0px 0px 10px black;    
+}
+.section .ladder #contain2
+{
+    transform: rotateZ(2deg);
+    background-color: #fd5e53;
+  
+    box-shadow: 0px 0px 8px black;  
+}
+.section .ladder #contain3
+{
+    transform: rotateZ(-2deg);
+    background-color: #fd5e53;
+   
+    box-shadow: 0px 0px 8px black;
+}
+.section .ladder #contain4
+{
+    transform: rotateZ(2deg);
+    background-color: #fd5e53;  
+    box-shadow: 0px 0px 8px black;
+}
+.reviewhead
+{
+    margin-top: 10%;
+    text-align: center;
+}
+.review .row
+{
+    display: flex;
+    gap: 2%;
+    margin: 2%; 
+}
+h4
+{
+    display: flex;
+    align-items: center;
+}
+.review .row img
+{
+    width: 7%;
+   
+}
+.review .row .r
+{
+    
+    border: 2px solid black;
+    border-radius: 3px;
+    padding: 0.5%;
+    width: 100%;
+    transition: all ease 0.4s; 
+}
+.review .row .r h4
+{
+   margin: 0;
+}
+.review .row .r span
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.review .row .r:hover
+{
+    box-shadow: 0px 0px 8px ;
+    width: 150%;
+    background-color: white;
+    background: linear-gradient(to right, white,rgba(0, 0, 0, 0.778) );
+    font-size: 18px;
+}
+.contact
+{
+    text-align: center;
+    margin-top: 7%;  
+}
+.contact .contactoptions
+{
+    display: flex;
+    padding-left: 3%;
+    margin-top: 5%;  
+}
+.contact .contactoptions div
+{  
+   width:100%;
+}
+.contact .contactoptions img
+{
+    width: 8%;
+}
+.contact .contactoptions .loc img
+{
+    width: 9%;
+}
+footer
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 3%;
+}
+footer .newsletter
+{
+    width: 50%;
+}
+footer .newsletter img
+{
+    width: 20%;
+}
+footer .newsletter input[type="email"]
+{
+    text-align: center;
+    font-size: 100%;
+    width: 50%;
+    padding: 1%;
+    outline: none;
+    border: 2px solid #fd5e53;
+    color: #fd5e53;
+}
+footer .newsletter input[type="email"]::placeholder
+{
+    color:#fd5e53
+}
+footer .newsletter input[type="button"]
+{
+    width: 30%;
+    padding: 1%;
+    font-size: 100%;
+    background-color: #fd5e53;
+    border: 2px solid #fd5e53;
+    color: white;
+    transition: all ease 0.5s;
+}
+footer .newsletter input[type="button"]:hover
+{
+    color: #fd5e53;
+    background-color: white;
+    
+}
+footer .navfoot
+{
+ width:25%;
+ line-height: 30px;
+}
+footer .navfoot a
+{
+    text-decoration: none;
+    color: black; 
+}
+footer .navfoot a:hover
+{
+    text-decoration: underline;
+}
+footer .follow
+{
+    width: 25%;
+    line-height: 30px;  
+}
+footer .follow a
+{
+    text-decoration: none;
+    color: black;
+}
+footer .follow a:hover
+{
+    text-decoration: underline;
+}
+footer .follow img
+{
+    width: 5%;
+}
+hr
+{
+    width: 95%;
+    background-color: black;
+    height: 1px;
+}
+.copyright
+{
+    display: flex;
+    justify-content: end;
+    margin-right: 4%;
+}
+.login-signup2
+{
+    
+    width: 100%;
+    visibility: hidden;
+}
+.login-signup2 .align
+{
+    display: flex;
+    background-color: white;
+    box-shadow: 0px 0px 10px black;
+    position: fixed;
+    z-index: 11;
+    left:15%;
+    top: 13%;
+    bottom: 12%; 
+    width: 70%;
+    height: 75%;
+}
+.login 
+{
+    width: 100%;
+    text-align: center;
+    line-height:45px;
+    padding: 5%;
+}
+.login a
+{
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    text-decoration: underline;
+}
+.login a i
+{
+    font-size: 20px;
+    border: 2px solid #fd5e53;
+    color: white;
+    background-color: #fd5e53;
+    padding: 1%;
+    border-radius: 5px;
+  
+}
+.login i
+{
+    color: #fd5e53;
+    font-size: 18px;
+}
+
+.login #create
+{
+    font-size: 16px;
+    margin: 0;
+    
+    cursor: pointer;
+}
+.login #create:hover
+{
+    text-decoration: underline;
+    color: #fd5e53;
+}
+.login input[type="email"], .login input[type="password"]
+{
+    width: 85%;
+    height: 10%;
+    font-size: 16px;
+    border: none;
+
+    border-bottom: 3px solid #fd5e53;
+  
+    outline: none;
+    
+}
+.login input[type="email"]::placeholder, .login input[type="password"]::placeholder{
+    color: black;
+}
+
+.login span
+{
+    display: flex;
+    justify-content: space-between;
+}
+.login span #forget:hover
+{
+    color: #fd5e53;
+}
+.login #loginsubmit
+{
+    
+    padding: 2%;
+    width: 30%;
+    font-size: 18px;
+    color: white;
+    background-color: #fd5e53;
+    border: 2px solid #fd5e53;
+    transition: all ease 0.5s;
+}
+.login #loginsubmit:hover
+{
+    box-shadow: 0px 0px 10px black; 
+}
+
+.signup  
+{
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    padding: 5%;
+    border-radius: 10px;
+}
+.signup a
+{
+    text-decoration: none;
+    
+}
+.signup a i
+{
+    color: white;
+    background-color: #fd5e53;
+    font-size: 20px;
+    border: 1px solid #fd5e53;
+    padding: 1%;
+
+    border-radius: 5px;
+}
+.signup a
+{
+    
+    font-size: 14px;
+    text-decoration: underline;
+}
+.signup i
+{
+    color: #fd5e53;
+    font-size: 18px;
+}
+.signup #already
+{
+    font-size: 16px;
+    margin: 0;
+  
+    cursor: pointer;
+}
+.signup #already:hover
+{
+    color: #fd5e53;
+    text-decoration: underline;
+}
+.signup #signupsubmit
+{
+    background-color: #fd5e53;
+    color: white;
+    border: 2px solid #fd5e53;
+    padding: 2%;
+    width: 30%;
+    font-size: 18px;
+   
+   
+    transition: all ease 0.5s;
+}
+.signup #signupsubmit:hover
+{
+    box-shadow: 0px 0px 10px black; 
+}
+.signup input[type="email"], .signup input[type="password"]
+{
+    width: 85%;
+    height: 10%;
+    font-size: 16px;
+ 
+    border: none;
+    border-bottom: 3px solid #fd5e53;
+
+    outline: none;
+    
+}
+.signup input[type="email"]::placeholder, .signup input[type="password"]::placeholder
+{
+    color: black;
+}
+.cover
+{
+    width: 50%;
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+    box-shadow: 0px 0px 10px black;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+    background-color: #fd5e53;
+    text-align: center;
+    line-height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s ease;
+    transform: translateX(100%);
+}
+.cover .coveralign
+{
+    padding: 20%;
+}
