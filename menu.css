@@ -1,0 +1,596 @@
+*
+{
+    scroll-behavior: smooth;
+    font-family: "Josefin Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;  
+}
+.all{
+    filter: blur(0px);
+}
+
+.scrollup
+{
+    background-color: #fd5e53;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 2%;
+    height: 4%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.scrollup img
+{
+    text-align: center;
+    width: 100%;
+}
+header
+{
+    display: flex;
+    align-items: center;
+    z-index: 4;
+    position: sticky;
+    margin-top: 1%;
+    top: 0;
+    background-color: white;
+    box-shadow: 0px 1px 3px black;
+}
+.logo
+{
+    padding-left: 2%;
+    width: 14%;
+    text-align: center;
+}
+header img
+{
+    width: 80%;
+}
+.nav
+{
+    width: 70%;
+    display: flex;
+    align-items: center;
+    gap:5%;
+    padding:0.3%;
+}
+.nav a
+{
+    text-decoration: none;
+    color: black;
+    padding: 1%;
+}
+.nav #menu
+{
+    color: BLACK;
+    border: 2px solid BLACK;
+    padding: 1%;
+    transition: all ease 0.5s;
+}
+.nav #menu:hover
+{
+    background-color: BLACK;
+    color: white;
+    text-decoration: none;
+}
+.nav a:hover
+{
+    text-decoration:underline;
+}
+.account
+{
+    width: 26%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 2%;
+}
+.account i
+{
+    font-size: 25px;
+    color:#fd5e53;
+    cursor: pointer;
+}
+.location
+{
+    display: flex;
+    justify-content: space-between;
+}
+.location p
+{
+    color: #fd5e53;
+    padding: 1%;
+    font-size: 25px;
+}
+.location select
+{
+    color: #fd5e53;
+    border: none;
+    border-bottom: 2px solid #fd5e53;
+    
+    outline: none;
+    font-size: 20px;
+}
+.location span
+{
+    font-size: 15px;
+}
+.location #typeid
+{
+    font-size: 15px;
+    border: 2px solid #fd5e53;
+    padding: 5%;
+    outline: none;
+}
+
+
+.banner
+{
+    background-image: url('menubanner.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 4%;
+    padding-left: 4%;
+    padding-top: 2%;
+    border-radius: 8px;
+}
+.banner h1
+{
+    width: 60%;
+    
+    font-size: 70px;
+}
+.banner p
+{
+    width: 70%;
+    font-size: 20px;
+    
+}
+.banner a{
+    text-decoration:none;
+    border: black 2px solid;
+    color: white;
+    background-color: black;
+    padding: 0.5%;
+    border-radius: 8px;
+    transition: all ease 0.3s;
+}
+.banner a:hover
+{
+    background-color: white;
+    color:black;
+}
+.offer
+{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 1%;
+    margin-top: 2%;
+}
+.offer img
+{
+    width: 100%;
+    border-radius: 8px;
+}
+.dishes
+{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    text-align: center;
+    margin-top: 3%;
+    
+}
+.dishes div
+{
+    transition: all 0.3s ease;
+}
+.dishes div:hover
+{
+    transform: translateY(-10px);
+}
+.cart{
+    display: flex;
+    visibility: hidden;
+    z-index: 10;
+    background-color: white;
+    box-shadow: 0px 0px 10px black;
+    position: fixed;
+    left:15%;
+    top: 13%;
+    bottom: 12%; 
+    width: 70%;
+    height: 80%;
+}
+
+.cart .closecart
+{
+    position: absolute;
+    left: 1%;
+    top: 1%;
+}
+.cart #close
+{
+    background-color: white;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 10%;
+}
+.cart #close:hover
+{
+    background-color: #fd5e53;
+}
+.cart .cartitems
+{
+    width: 50%;
+    padding: 7%;
+}
+.cart .checkout
+{
+    width: 30%;
+    padding: 3%;
+  
+    background-color: #fd5e53;
+}
+.cart .checkout #grandtotalline
+{
+    width: 100%;
+    border: #fd5e53;
+}
+.cart .checkout p
+{
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+.cart .checkout hr
+{
+    width: 60%;
+    border: #fd5e53;
+}
+.cart .checkout #confirm
+{
+    width: 60%;
+    position: relative;
+    left: 20%;
+    font-size: 18px;
+    height: 10%;
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    
+    outline: none;
+    transition: all ease 0.3s;
+
+}
+.cart .checkout #confirm:hover
+{
+    width: 100%;
+    left: 0;
+}
+.cart .checkout .payoptions .cards a
+{
+    text-decoration: none;
+    color: black;
+}
+.cart .checkout .payoptions .cards a:hover
+{
+    text-decoration: underline;
+}
+.cart .checkout .payoptions img
+{
+    width: 9%; 
+}
+.cart .checkout .payoptions hr
+{
+    width: 100%;
+    height: 2px;
+    
+}
+.cart .checkout .payoptions fieldset
+{
+    border: 3px solid black;
+}
+
+.cart .total
+{
+    text-align: right;
+
+}
+.cart .total #price , #amount{
+    font-size: 18px;
+}
+.cart .total span{
+    font-size: 12px;
+}
+.cart .cartitems .tablehead #carttable
+{
+    width: 100%;
+}
+.cart .cartitems .tablehead #carttable tr
+{
+    text-align: center;
+}
+.cart .cartitems .tablehead #carttable th
+{   
+    width: 25%;
+}
+.cart .cartitems .tablehead #carttable td
+{
+    line-height: 10px;
+}
+
+.cart .cartitems .tablehead img
+{
+    width: 80%;
+    border-radius: 100%;
+}
+.cart .cartitems .tablehead #empty{
+    text-align: center;
+    margin:10%;
+    font-size: 30px;
+    color: #fd5e53;
+}
+.cart .cartitems .items h2
+{
+    text-align: center;
+    color: #fd5e53;
+}
+.cart .cartitems .note
+{
+    position: absolute;
+    bottom: 1%;
+    width: 50%;
+}
+
+.cart .cartitems .note input
+{
+    border: none;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 1%;
+    width: 100%;
+    font-size: 14px;
+    outline: none;
+}
+.cart .cartitems .note input::placeholder
+{
+    color: black;
+}
+
+
+.dishes img
+{
+    width: 60%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    margin: 3%;
+}
+.food
+{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 1%;
+    margin-top: 3%;
+}
+.food .card
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    transition: all ease 0.3s; 
+}
+.food .card #add
+{
+    display: flex;
+    justify-content: space-between;
+}
+.food .card #add button
+{
+    background-color: black;
+    color: white;
+    padding: 2%;
+    font-size: 14px;
+}
+.food .card #add #number
+{
+    padding: 2%;
+    font-size: 14px;
+}
+.food .card #add select
+{
+    font-size: 14px;
+
+}
+.food .card:hover
+{
+    transform: translateY(-10px);
+    box-shadow: 0px 0px 5px black; 
+}
+.food .card .cardtext
+{
+    padding: 4%;
+}
+.food .card .cardtext .info
+{
+   display: flex;
+   justify-content: space-between;
+}
+
+
+.food .card .img img
+{
+    border-radius: 8px;
+    aspect-ratio: 3/2;
+    object-fit: fill;
+    width: 100%;
+    height: 100%;  
+}
+.rest
+{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 1%;
+    margin-top: 3%;
+}
+.rest .card
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    
+    transition: all ease 0.2s;
+}
+.rest .card:hover
+{
+    transform: translateY(-10px);
+    box-shadow: 0px 0px 5px black;
+}
+.rest .card .cardtext
+{
+    padding: 4%;
+}
+.rest .card .cardtext .info
+{
+   display: flex;
+   justify-content: space-between;
+}
+
+
+.rest .card .img img
+{
+    border-radius: 8px;
+    aspect-ratio: 3/2;
+    object-fit: fill;
+    width: 100%;
+    height: 100%;  
+}
+footer
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 3%;
+}
+footer .newsletter
+{
+    width: 50%;
+}
+footer .newsletter img
+{
+    width: 20%;
+}
+footer .newsletter input[type="email"]
+{
+    text-align: center;
+    font-size: 100%;
+    width: 50%;
+    padding: 1%;
+    outline: none;
+}
+footer .newsletter input[type="button"]
+{
+    width: 30%;
+    padding: 1%;
+    font-size: 100%;
+    background-color: white;
+    border: 1px solid #fd5e53;
+    color: #fd5e53;
+    transition: all ease 0.7s;
+}
+footer .newsletter input[type="button"]:hover
+{
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+}
+footer .navfoot
+{
+ width:25%;
+ line-height: 30px;
+}
+footer .navfoot a
+{
+    text-decoration: none;
+    color: black; 
+}
+footer .navfoot a:hover
+{
+    text-decoration: underline;
+}
+footer .follow
+{
+    width: 25%;
+    line-height: 30px;  
+}
+footer .follow a
+{
+    text-decoration: none;
+    color: black;
+}
+footer .follow a:hover
+{
+    text-decoration: underline;
+}
+footer .follow img
+{
+    width: 5%;
+}
+hr
+{
+    width: 95%;
+    background-color: black;
+    height: 1px;
+}
+.copyright
+{
+    display: flex;
+    justify-content: end;
+    margin-right: 4%;
+}
+
+/* ... (existing CSS) ... */
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .banner {
+      padding: 3%;
+    }
+   
+    .food .card .img img {
+      width: 100%;
+      height: auto;
+    }
+    .rest .card .img img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    /* Additional adjustments for smaller screens */
+    .dishes {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .food {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .rest {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .footer .newsletter {
+      width: 100%;
+    }
+    .footer .navfoot, .footer .follow {
+      width: 100%;
+    }
+  }
