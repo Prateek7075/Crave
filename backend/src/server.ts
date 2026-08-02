@@ -4,14 +4,47 @@ import { createApp } from "./app.js";
 import { env } from "./config/env.js";
 import { logger } from "./config/logger.js";
 import { connectDatabase, disconnectDatabase } from "./config/prisma.js";
+import { connectRedis, disconnectRedis } from "./config/redis.js";
 
 const app = createApp();
 const server = createServer(app);
 
 let isShuttingDown = false;
 
+async function connectDependencies(): Promise<void> {
+  try {
+    await connectDatabase();
+    await connectRedis();
+  } catch (error) {
+    await Promise.allSettled([disconnectRedis(), disconnectDatabase()]);
+
+    throw error;
+  }
+}
+
+async function disconnectDependencies(): Promise<boolean> {
+  const results = await Promise.allSettled([disconnectRedis(), disconnectDatabase()]);
+
+  let succeeded = true;
+
+  for (const result of results) {
+    if (result.status === "rejected") {
+      succeeded = false;
+
+      logger.error(
+        {
+          err: result.reason,
+        },
+        "Dependency disconnection failed",
+      );
+    }
+  }
+
+  return succeeded;
+}
+
 async function startServer(): Promise<void> {
-  await connectDatabase();
+  await connectDependencies();
 
   server.listen(env.PORT, () => {
     logger.info(
@@ -38,34 +71,25 @@ async function shutdown(signal: string): Promise<void> {
     "Shutdown signal received",
   );
 
-  server.close(async (error) => {
-    try {
-      await disconnectDatabase();
+  server.close(async (serverError) => {
+    const dependenciesDisconnected = await disconnectDependencies();
 
-      if (error) {
-        logger.error(
-          {
-            err: error,
-          },
-          "HTTP server shutdown failed",
-        );
-
-        process.exitCode = 1;
-        return;
-      }
-
-      logger.info("Crave API shut down successfully");
-      process.exitCode = 0;
-    } catch (disconnectError) {
+    if (serverError) {
       logger.error(
         {
-          err: disconnectError,
+          err: serverError,
         },
-        "Database disconnection failed",
+        "HTTP server shutdown failed",
       );
-
-      process.exitCode = 1;
     }
+
+    if (serverError || !dependenciesDisconnected) {
+      process.exitCode = 1;
+      return;
+    }
+
+    logger.info("Crave API shut down successfully");
+    process.exitCode = 0;
   });
 }
 

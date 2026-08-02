@@ -6,6 +6,7 @@ import { prisma } from "./config/prisma.js";
 import { httpLogger } from "./common/middleware/http-logger.js";
 import { errorHandler } from "./common/middleware/error-handler.js";
 import { notFoundHandler } from "./common/middleware/not-found.js";
+import { redisClient } from "./config/redis.js";
 
 export function createApp(): Express {
   const app = express();
@@ -41,13 +42,14 @@ export function createApp(): Express {
 
   app.get("/api/v1/health/ready", async (_request: Request, response: Response) => {
     try {
-      await prisma.$queryRaw`SELECT 1`;
+      await Promise.all([prisma.$queryRaw`SELECT 1`, redisClient.ping()]);
 
       return response.status(200).json({
         success: true,
         data: {
           status: "READY",
           database: "CONNECTED",
+          redis: "CONNECTED",
         },
         message: "Crave API is ready",
       });
@@ -56,7 +58,7 @@ export function createApp(): Express {
         success: false,
         error: {
           code: "SERVICE_NOT_READY",
-          message: "The database connection is unavailable",
+          message: "One or more required services are unavailable",
         },
       });
     }
