@@ -7,6 +7,8 @@ const envSchema = z.object({
 
   PORT: z.coerce.number().int().positive().max(65535).default(3000),
 
+  LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).default("info"),
+
   FRONTEND_URL: z.string().url(),
 
   DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),

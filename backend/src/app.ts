@@ -3,11 +3,16 @@ import express, { type Express, type Request, type Response } from "express";
 import helmet from "helmet";
 import { env } from "./config/env.js";
 import { prisma } from "./config/prisma.js";
+import { httpLogger } from "./common/middleware/http-logger.js";
+import { errorHandler } from "./common/middleware/error-handler.js";
+import { notFoundHandler } from "./common/middleware/not-found.js";
 
 export function createApp(): Express {
   const app = express();
 
   app.disable("x-powered-by");
+
+  app.use(httpLogger);
 
   app.use(helmet());
 
@@ -56,6 +61,9 @@ export function createApp(): Express {
       });
     }
   });
+
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
   return app;
 }

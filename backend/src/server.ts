@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 
 import { createApp } from "./app.js";
 import { env } from "./config/env.js";
+import { logger } from "./config/logger.js";
 import { connectDatabase, disconnectDatabase } from "./config/prisma.js";
 
 const app = createApp();
@@ -13,7 +14,13 @@ async function startServer(): Promise<void> {
   await connectDatabase();
 
   server.listen(env.PORT, () => {
-    console.log(`Crave API running at http://localhost:${env.PORT}`);
+    logger.info(
+      {
+        port: env.PORT,
+      },
+      "Crave API started",
+      console.log(`Crave API running at http://localhost:${env.PORT}`),
+    );
   });
 }
 
@@ -24,22 +31,39 @@ async function shutdown(signal: string): Promise<void> {
 
   isShuttingDown = true;
 
-  console.log(`${signal} received. Shutting down Crave API...`);
+  logger.info(
+    {
+      signal,
+    },
+    "Shutdown signal received",
+  );
 
   server.close(async (error) => {
     try {
       await disconnectDatabase();
 
       if (error) {
-        console.error("HTTP server shutdown failed:", error);
+        logger.error(
+          {
+            err: error,
+          },
+          "HTTP server shutdown failed",
+        );
+
         process.exitCode = 1;
         return;
       }
 
-      console.log("Crave API shut down successfully.");
+      logger.info("Crave API shut down successfully");
       process.exitCode = 0;
     } catch (disconnectError) {
-      console.error("Database disconnection failed:", disconnectError);
+      logger.error(
+        {
+          err: disconnectError,
+        },
+        "Database disconnection failed",
+      );
+
       process.exitCode = 1;
     }
   });
@@ -54,6 +78,12 @@ process.on("SIGTERM", () => {
 });
 
 void startServer().catch((error: unknown) => {
-  console.error("Crave API failed to start:", error);
+  logger.fatal(
+    {
+      err: error,
+    },
+    "Crave API failed to start",
+  );
+
   process.exitCode = 1;
 });
