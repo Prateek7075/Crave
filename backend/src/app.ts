@@ -1,6 +1,8 @@
 import cors from "cors";
 import express, { type Express, type Request, type Response } from "express";
 import helmet from "helmet";
+import { env } from "./config/env.js";
+import { prisma } from "./config/prisma.js";
 
 export function createApp(): Express {
   const app = express();
@@ -11,7 +13,7 @@ export function createApp(): Express {
 
   app.use(
     cors({
-      origin: "http://localhost:5173",
+      origin: env.FRONTEND_URL,
       credentials: true,
     }),
   );
@@ -30,6 +32,29 @@ export function createApp(): Express {
       },
       message: "Crave API is running",
     });
+  });
+
+  app.get("/api/v1/health/ready", async (_request: Request, response: Response) => {
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+
+      return response.status(200).json({
+        success: true,
+        data: {
+          status: "READY",
+          database: "CONNECTED",
+        },
+        message: "Crave API is ready",
+      });
+    } catch {
+      return response.status(503).json({
+        success: false,
+        error: {
+          code: "SERVICE_NOT_READY",
+          message: "The database connection is unavailable",
+        },
+      });
+    }
   });
 
   return app;

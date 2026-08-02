@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AccountRole {
+  CUSTOMER
+  RESTAURANT_OWNER
+  DELIVERY_PARTNER
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+  DISABLED
+}
+
+enum OnboardingStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
+}
+
+enum VehicleType {
+  MOTORBIKE
+  SCOOTER
+  BICYCLE
+}
+
+model Account {
+  id               Int           @id @default(autoincrement())
+  role             AccountRole
+  status           AccountStatus @default(ACTIVE)
+  mobile           String?       @unique @db.VarChar(20)
+  email            String?       @unique @db.VarChar(320)
+  passwordHash     String?       @map("password_hash") @db.Text
+  mobileVerifiedAt DateTime?     @map("mobile_verified_at") @db.Timestamptz(3)
+  emailVerifiedAt  DateTime?     @map("email_verified_at") @db.Timestamptz(3)
+  createdAt        DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  customerProfile        CustomerProfile?
+  restaurantOwnerProfile RestaurantOwnerProfile?
+  deliveryPartnerProfile DeliveryPartnerProfile?
+  refreshSession         RefreshSession?
+
+  @@index([role, status])
+  @@map("accounts")
+}
+
+model CustomerProfile {
+  id              Int      @id @default(autoincrement())
+  accountId       Int      @unique @map("account_id")
+  fullName        String   @map("full_name") @db.VarChar(120)
+  profileImageId  String?  @map("profile_image_id") @db.VarChar(255)
+  profileImageUrl String?  @map("profile_image_url") @db.Text
+  createdAt       DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt       DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@map("customer_profiles")
+}
+
+model RestaurantOwnerProfile {
+  id               Int              @id @default(autoincrement())
+  accountId        Int              @unique @map("account_id")
+  fullName         String           @map("full_name") @db.VarChar(120)
+  onboardingStatus OnboardingStatus @default(DRAFT) @map("onboarding_status")
+  createdAt        DateTime         @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime         @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([onboardingStatus])
+  @@map("restaurant_owner_profiles")
+}
+
+model DeliveryPartnerProfile {
+  id               Int              @id @default(autoincrement())
+  accountId        Int              @unique @map("account_id")
+  fullName         String           @map("full_name") @db.VarChar(120)
+  onboardingStatus OnboardingStatus @default(DRAFT) @map("onboarding_status")
+  vehicleType      VehicleType?     @map("vehicle_type")
+  createdAt        DateTime         @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime         @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([onboardingStatus])
+  @@map("delivery_partner_profiles")
+}
+
+model RefreshSession {
+  id         Int       @id @default(autoincrement())
+  accountId  Int       @unique @map("account_id")
+  tokenHash  String    @unique @map("token_hash") @db.VarChar(128)
+  userAgent  String?   @map("user_agent") @db.Text
+  ipAddress  String?   @map("ip_address") @db.VarChar(64)
+  expiresAt  DateTime  @map("expires_at") @db.Timestamptz(3)
+  lastUsedAt DateTime? @map("last_used_at") @db.Timestamptz(3)
+  revokedAt  DateTime? @map("revoked_at") @db.Timestamptz(3)
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt  DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+  @@map("refresh_sessions")
+}
