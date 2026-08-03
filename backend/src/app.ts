@@ -7,6 +7,7 @@ import { httpLogger } from "./common/middleware/http-logger.js";
 import { errorHandler } from "./common/middleware/error-handler.js";
 import { notFoundHandler } from "./common/middleware/not-found.js";
 import { redisClient } from "./config/redis.js";
+import { customerAuthRouter } from "./features/auth/customer/customer-auth.routes.js";
 
 export function createApp(): Express {
   const app = express();
@@ -29,6 +30,15 @@ export function createApp(): Express {
       limit: "100kb",
     }),
   );
+  app.get("/", (_request: Request, response: Response) => {
+    return response.status(200).json({
+      success: true,
+      data: {
+        status: "UP",
+      },
+      message: "Crave Backend is running",
+    });
+  });
 
   app.get("/api/v1/health/live", (_request: Request, response: Response) => {
     return response.status(200).json({
@@ -63,6 +73,8 @@ export function createApp(): Express {
       });
     }
   });
+
+  app.use("/api/v1/auth/customer", customerAuthRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
