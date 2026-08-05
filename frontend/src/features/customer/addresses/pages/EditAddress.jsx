@@ -83,6 +83,9 @@ export default function EditAddress() {
 
       navigate("/dashboard/addresses", {
         replace: true,
+        state: {
+          successMessage: "Your saved address was updated successfully.",
+        },
       });
     } catch (error) {
       setSubmissionError(error?.message || "The address could not be updated.");

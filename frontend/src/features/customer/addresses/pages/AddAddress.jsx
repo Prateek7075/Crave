@@ -28,6 +28,9 @@ export default function AddAddress() {
 
       navigate("/dashboard/addresses", {
         replace: true,
+        state: {
+          successMessage: "Your delivery address was saved successfully.",
+        },
       });
     } catch (error) {
       setSubmissionError(error?.message || "The address could not be saved.");

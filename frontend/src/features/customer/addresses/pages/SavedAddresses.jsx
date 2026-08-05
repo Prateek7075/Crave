@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import {
   deleteCustomerAddress,
@@ -7,8 +7,18 @@ import {
 } from "../api/customerAddresses.js";
 
 import AddressCard from "../components/AddressCard.jsx";
+import ConfirmDialog from "../../../../components/feedback/ConfirmDialog.jsx";
+import Toast from "../../../../components/feedback/Toast.jsx";
 
 export default function SavedAddresses() {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [successMessage, setSuccessMessage] = useState(
+    location.state?.successMessage || "",
+  );
+
   const [addresses, setAddresses] = useState([]);
   const [status, setStatus] = useState("loading");
   const [errorMessage, setErrorMessage] = useState("");
@@ -16,6 +26,8 @@ export default function SavedAddresses() {
   const [deletingAddressId, setDeletingAddressId] = useState(null);
 
   const [actionError, setActionError] = useState("");
+
+  const [addressPendingDeletion, setAddressPendingDeletion] = useState(null);
 
   const loadAddresses = useCallback(async () => {
     setStatus("loading");
@@ -38,26 +50,40 @@ export default function SavedAddresses() {
     void loadAddresses();
   }, [loadAddresses]);
 
-  async function handleDelete(address) {
-    const shouldDelete = window.confirm(
-      `Delete your "${address.label}" address?`,
-    );
-
-    if (!shouldDelete) {
+  useEffect(() => {
+    if (!location.state?.successMessage) {
       return;
     }
 
-    setDeletingAddressId(address.id);
+    setSuccessMessage(location.state.successMessage);
+
+    navigate(location.pathname, {
+      replace: true,
+      state: null,
+    });
+  }, [location.pathname, location.state, navigate]);
+
+  async function handleDeleteConfirmed() {
+    if (!addressPendingDeletion) {
+      return;
+    }
+
+    const addressId = addressPendingDeletion.id;
+
+    setDeletingAddressId(addressId);
     setActionError("");
 
     try {
-      await deleteCustomerAddress(address.id);
+      await deleteCustomerAddress(addressId);
 
       setAddresses((currentAddresses) =>
         currentAddresses.filter(
-          (currentAddress) => currentAddress.id !== address.id,
+          (currentAddress) => currentAddress.id !== addressId,
         ),
       );
+      setSuccessMessage("The saved address was deleted successfully.");
+
+      setAddressPendingDeletion(null);
     } catch (error) {
       setActionError(error?.message || "The address could not be deleted.");
     } finally {
@@ -184,14 +210,35 @@ export default function SavedAddresses() {
                 key={address.id}
                 address={address}
                 isDeleting={deletingAddressId === address.id}
-                onDelete={(selectedAddress) =>
-                  void handleDelete(selectedAddress)
-                }
+                onDelete={(selectedAddress) => {
+                  setActionError("");
+
+                  setAddressPendingDeletion(selectedAddress);
+                }}
               />
             ))}
           </section>
         )}
       </section>
+
+      <ConfirmDialog
+        isOpen={addressPendingDeletion !== null}
+        title="Delete saved address?"
+        description={
+          addressPendingDeletion
+            ? `Your "${addressPendingDeletion.label}" address will be permanently removed from your Crave account.`
+            : ""
+        }
+        confirmLabel="Delete Address"
+        isConfirming={deletingAddressId !== null}
+        onCancel={() => {
+          if (deletingAddressId === null) {
+            setAddressPendingDeletion(null);
+          }
+        }}
+        onConfirm={() => void handleDeleteConfirmed()}
+      />
+      <Toast message={successMessage} onClose={() => setSuccessMessage("")} />
     </main>
   );
 }
