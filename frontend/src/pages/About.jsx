@@ -1,51 +1,275 @@
+import { Link } from "react-router-dom";
+
+const principles = [
+  {
+    icon: "fa-receipt",
+    title: "Transparent for customers",
+    description:
+      "Food price, packaging, delivery, platform fee, taxes and tip should be clearly visible before payment.",
+  },
+  {
+    icon: "fa-store",
+    title: "Fair for restaurants",
+    description:
+      "Restaurants should control their menu prices and offers without forced discounts or hidden platform markups.",
+  },
+  {
+    icon: "fa-motorcycle",
+    title: "Respectful to delivery partners",
+    description:
+      "Delivery earnings should be understandable, predictable and separate from customer tips.",
+  },
+  {
+    icon: "fa-shield-halved",
+    title: "Built with accountability",
+    description:
+      "Important actions such as cancellations, refunds, settlements and overrides should remain traceable.",
+  },
+];
+
+const customerExperience = [
+  "Mobile OTP login without password friction",
+  "Saved delivery addresses with precise map locations",
+  "Clear restaurant and menu availability",
+  "Complete checkout fee breakdown",
+  "Trackable order progress",
+  "Audited refund and support workflows",
+];
+
+const platformPromises = [
+  {
+    label: "Menu pricing",
+    value: "No platform-added markup",
+  },
+  {
+    label: "Customer checkout",
+    value: "Every major charge explained",
+  },
+  {
+    label: "Restaurant control",
+    value: "Own prices and offers",
+  },
+  {
+    label: "Delivery partner tips",
+    value: "100% belongs to the partner",
+  },
+];
+
 export default function About() {
   return (
-    <div className="bg-[#F9FCFB] pb-24">
-      
-      {/* 1. The Giant Red Header */}
-      <div className="bg-[#fd5e53] text-white text-center py-24 md:py-32">
-        <h1 className="text-[100px] md:text-[200px] font-black tracking-widest leading-none drop-shadow-md">
-          CRAVE
-        </h1>
-      </div>
+    <main className="overflow-hidden bg-white">
+      <section className="relative border-b border-gray-100 bg-[#fff8f6]">
+        <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-[#f45d52]/10 blur-3xl" />
+        <div className="absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-orange-200/30 blur-3xl" />
 
-      {/* 2. The Overlapping White Box */}
-      <div className="flex justify-center px-6 -mt-16 md:-mt-24 relative z-10">
-        <div className="bg-white border-2 border-black p-10 md:p-16 w-full max-w-4xl shadow-2xl rounded-2xl text-center">
-          <h2 className="text-4xl font-bold text-[#fd5e53] mb-8 underline decoration-4 underline-offset-8">
-            About Crave
-          </h2>
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6 font-medium">
-            Crave is your ultimate culinary companion, dedicated to delivering exceptional food experiences right to your doorstep. With a passion for taste and convenience, we've curated a diverse selection of restaurants, from local gems to international favorites.
-          </p>
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium">
-            Whether you're craving comforting classics, healthy options, or adventurous flavors, Crave has something to satisfy every appetite. Our user-friendly platform makes ordering a breeze, and our reliable delivery partners ensure your food arrives hot and fresh.
-          </p>
-        </div>
-      </div>
+        <div className="relative mx-auto grid min-h-[640px] max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#f45d52]/20 bg-white px-4 py-2 text-sm font-black text-[#f45d52] shadow-sm">
+              <i className="fa-solid fa-heart" />
+              Why Crave exists
+            </div>
 
-      {/* 3. The 3-Column Info Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-8 mt-24 text-center items-stretch">
-        
-        <div className="bg-[#fd5e53] text-white p-10 md:p-12 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold mb-6 underline decoration-2 underline-offset-4">Our Story</h2>
-          <p className="text-lg leading-relaxed">
-            Founded with the vision to bridge the gap between food lovers and their favorite local restaurants, Crave started as a small idea in a college dorm. Today, we are proud to connect thousands of hungry customers with the best culinary experiences their city has to offer.
-          </p>
+            <h1 className="mt-7 max-w-3xl text-5xl font-black leading-[1.03] tracking-tight text-gray-950 sm:text-6xl lg:text-7xl">
+              Food delivery should feel
+              <span className="block text-[#f45d52]">fair to everyone.</span>
+            </h1>
+
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl">
+              Crave is being built around a simple idea: customers deserve
+              clarity, restaurants deserve control and delivery partners deserve
+              transparent earnings.
+            </p>
+
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <Link
+                to="/menu"
+                className="inline-flex items-center justify-center gap-3 rounded-2xl bg-[#f45d52] px-7 py-4 font-black text-white shadow-lg shadow-[#f45d52]/20 transition-all hover:-translate-y-1 hover:bg-black"
+              >
+                Explore Crave
+                <i className="fa-solid fa-arrow-right" />
+              </Link>
+
+              <Link
+                to="/login"
+                className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-gray-900 bg-white px-7 py-4 font-black text-gray-900 transition-all hover:-translate-y-1 hover:bg-gray-900 hover:text-white"
+              >
+                Customer Login
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-xl">
+            <div className="rounded-[2.5rem] bg-gray-950 p-6 shadow-2xl shadow-gray-400/30 sm:p-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[0.2em] text-[#f45d52]">
+                    Crave principle
+                  </p>
+
+                  <h2 className="mt-3 text-3xl font-black text-white">
+                    Nothing important should be hidden.
+                  </h2>
+                </div>
+
+                <span className="hidden h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#f45d52] text-2xl text-white sm:flex">
+                  <i className="fa-solid fa-eye" />
+                </span>
+              </div>
+
+              <div className="mt-8 space-y-4">
+                {platformPromises.map((promise) => (
+                  <div
+                    key={promise.label}
+                    className="flex flex-col gap-2 rounded-2xl border border-gray-800 bg-white/5 p-5 sm:flex-row sm:items-center sm:justify-between"
+                  >
+                    <p className="text-sm font-bold text-gray-400">
+                      {promise.label}
+                    </p>
+
+                    <p className="font-black text-white">{promise.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="absolute -bottom-7 -left-3 rounded-2xl bg-white p-5 shadow-xl sm:-left-8">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-100 text-green-700">
+                  <i className="fa-solid fa-circle-check" />
+                </span>
+
+                <div>
+                  <p className="text-xs font-black uppercase tracking-wider text-gray-400">
+                    Customer trust
+                  </p>
+
+                  <p className="font-black text-gray-950">
+                    Clear before checkout
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div className="rounded-2xl overflow-hidden shadow-xl h-full min-h-[300px]">
-          <img src="/images/aboutback4.jpg" alt="The Team" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+      </section>
+
+      <section className="px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#f45d52]">
+              Our approach
+            </p>
+
+            <h2 className="mt-4 text-4xl font-black tracking-tight text-gray-950 sm:text-5xl">
+              A platform designed around balance
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Crave is not only an ordering interface. Its product rules are
+              designed to balance the needs of every participant involved in
+              delivering a meal.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
+            {principles.map((principle) => (
+              <article
+                key={principle.title}
+                className="group rounded-3xl border border-gray-100 bg-[#fafcfc] p-7 transition-all duration-300 hover:-translate-y-2 hover:border-[#f45d52]/20 hover:bg-white hover:shadow-xl sm:p-8"
+              >
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff0ed] text-xl text-[#f45d52] transition-colors group-hover:bg-[#f45d52] group-hover:text-white">
+                  <i className={`fa-solid ${principle.icon}`} />
+                </span>
+
+                <h3 className="mt-6 text-2xl font-black text-gray-950">
+                  {principle.title}
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  {principle.description}
+                </p>
+              </article>
+            ))}
+          </div>
         </div>
-        
-        <div className="bg-[#fd5e53] text-white p-10 md:p-12 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 flex flex-col justify-center">
-          <h2 className="text-3xl font-bold mb-6 underline decoration-2 underline-offset-4">Our Mission</h2>
-          <p className="text-lg leading-relaxed">
-            To provide a seamless, reliable, and delightful food delivery experience while empowering local restaurants to reach a wider audience. We believe that good food brings people together, and we strive to make every meal memorable.
-          </p>
+      </section>
+
+      <section className="bg-[#f5f8f7] px-6 py-24 lg:px-8">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[0.88fr_1.12fr]">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#f45d52]">
+              Customer experience
+            </p>
+
+            <h2 className="mt-4 text-4xl font-black tracking-tight text-gray-950 sm:text-5xl">
+              Simple on the surface.
+              <span className="block">Responsible underneath.</span>
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              The customer journey should remain straightforward while important
+              business rules, security checks and audit records operate reliably
+              behind it.
+            </p>
+
+            <Link
+              to="/dashboard"
+              className="mt-8 inline-flex items-center gap-3 font-black text-[#f45d52] transition-colors hover:text-black"
+            >
+              Open customer dashboard
+              <i className="fa-solid fa-arrow-right" />
+            </Link>
+          </div>
+
+          <div className="rounded-[2rem] border border-gray-100 bg-white p-7 shadow-sm sm:p-9">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {customerExperience.map((experienceItem) => (
+                <div
+                  key={experienceItem}
+                  className="flex items-start gap-4 rounded-2xl border border-gray-100 bg-[#fafbfb] p-5"
+                >
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-100 text-sm text-green-700">
+                    <i className="fa-solid fa-check" />
+                  </span>
+
+                  <p className="font-bold leading-6 text-gray-800">
+                    {experienceItem}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        
-      </div>
-    </div>
+      </section>
+
+      <section className="px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#f45d52] to-[#ff8a68] px-7 py-14 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:px-16">
+            <div className="max-w-2xl">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-white/70">
+                Crave is being built
+              </p>
+
+              <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">
+                A clearer way to order and deliver food.
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-white/80">
+                Customer authentication and saved delivery addresses are already
+                taking shape. Restaurants, menus, checkout and orders come next.
+              </p>
+            </div>
+
+            <Link
+              to="/menu"
+              className="mt-8 inline-flex shrink-0 items-center justify-center gap-3 rounded-2xl bg-white px-7 py-4 font-black text-gray-950 transition-all hover:-translate-y-1 hover:bg-gray-950 hover:text-white lg:mt-0"
+            >
+              View Progress
+              <i className="fa-solid fa-arrow-right" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

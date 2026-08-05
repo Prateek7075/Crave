@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('mobile',13)->nullable()->unique();
             $table->string('email',254)->nullable();
             $table->string('password_hash')->nullable();
-            $table->timestamps();
+            $table->timestampsTz();
         });
 
         DB::statement(<<<'SQL'

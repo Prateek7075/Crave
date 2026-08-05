@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Illuminate\Auth\AuthenticationException;
 use function PHPUnit\Framework\isString;
 
 
@@ -23,9 +24,30 @@ return Application::configure(basePath: dirname(__DIR__))
         apiPrefix: 'api/v1',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->statefulApi();
         $middleware->prepend(AssignRequestId::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
+        $exceptions->render(
+            function(AuthenticationException $e, Request $request): ?JsonResponse{
+                if(!$request->is('api/*') && !$request->expectsJson()){
+                    return null;
+                }
+
+                $requestId = $request->attributes->get(AssignRequestId::REQUEST_ATTRIBUTE);
+
+                return response()->json([
+                    'error' => [
+                        'code' => 'UNAUTHENTICATED',
+                        'message' => 'Authentication is required.'
+                    ],
+
+                    'requestId' => is_string($requestId) ? $requestId : null,
+                ],401);
+            }
+        );
+
         $exceptions->shouldRenderJsonWhen(
           function(Request $request, \Throwable $exception): bool {
               return $request->is('api/*') || $request->expectsJson();

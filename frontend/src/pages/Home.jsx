@@ -1,178 +1,335 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
+const benefits = [
+  {
+    icon: "fa-store",
+    title: "Fair for restaurants",
+    description:
+      "Low transparent platform charges without forced discounts or hidden menu markups.",
+  },
+  {
+    icon: "fa-receipt",
+    title: "Clear for customers",
+    description:
+      "See food, packaging, delivery, platform fees and taxes before placing an order.",
+  },
+  {
+    icon: "fa-motorcycle",
+    title: "Better for partners",
+    description:
+      "Delivery earnings stay clear, predictable and independent from customer tips.",
+  },
+];
+
+const steps = [
+  {
+    number: "01",
+    title: "Choose your food",
+    description:
+      "Explore nearby restaurants and discover meals that match your craving.",
+  },
+  {
+    number: "02",
+    title: "Review everything",
+    description:
+      "Check prices, fees, delivery details and your saved address before payment.",
+  },
+  {
+    number: "03",
+    title: "Track your order",
+    description:
+      "Follow clear order updates from restaurant confirmation to doorstep delivery.",
+  },
+];
 
 export default function Home() {
-  const [deliveryImg, setDeliveryImg] = useState('/images/quickdelivery.jpg');
-  const [subImg, setSubImg] = useState('/images/subscription.jpg');
-  const [billing, setBilling] = useState('monthly');
-
   return (
-    <div className="pb-20">
-      {/* 1. Hero Section */}
-      <section className="text-center pt-24 pb-16 px-4 max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-          Delecious Food Delivered to <span className="text-[#fd5e53]">Your Doorstep</span>
-        </h1>
-        <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-          Order from a wide selection of mouth-watering dishes and have them delivered straight to your home. Enjoy the convenience of having your favorite meals brought to you hassle-free.
-        </p>
-        <Link to="/menu" className="bg-black text-white px-10 py-3 text-lg font-bold rounded hover:bg-[#fd5e53] transition-colors">
-          Order Now
-        </Link>
-      </section>
+    <main className="overflow-hidden">
+      <section className="relative bg-[#fff8f6]">
+        <div className="absolute -left-32 top-24 h-72 w-72 rounded-full bg-[#f45d52]/10 blur-3xl" />
+        <div className="absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-orange-200/30 blur-3xl" />
 
-      {/* 2. Scrolling Image Carousel */}
-      <section className="flex gap-4 overflow-x-auto px-8 py-8 hide-scrollbar">
-        {[1, 2, 3, 4, 5, 6].map((num) => (
-          <img key={num} src={`/images/${num}.jpg`} alt={`Food ${num}`} className="h-48 w-72 object-cover rounded-lg shadow-md flex-shrink-0" />
-        ))}
-      </section>
+        <div className="relative mx-auto grid min-h-[720px] max-w-7xl items-center gap-14 px-6 py-20 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#f45d52]/20 bg-white px-4 py-2 text-sm font-bold text-[#f45d52] shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-[#f45d52]" />
+              Fair food delivery, made simple
+            </div>
 
-      {/* 3. Quick Delivery Features */}
-      <section className="flex flex-col md:flex-row items-center justify-between px-10 py-16 max-w-7xl mx-auto gap-12">
-        <div className="flex-1">
-          <img src={deliveryImg} alt="Delivery Feature" className="w-full rounded-2xl shadow-xl" />
-        </div>
-        <div className="flex-1 space-y-8">
-          <div className="cursor-pointer group" onClick={() => setDeliveryImg('/images/quickdelivery.jpg')}>
-            <h3 className="text-2xl font-bold group-hover:text-[#fd5e53] transition-colors">Quick Delivery</h3>
-            <p className="text-gray-600 text-lg mt-1">Get Your Food Delivered Quickly</p>
-          </div>
-          <div className="cursor-pointer group" onClick={() => setDeliveryImg('/images/cuisine.jpg')}>
-            <h3 className="text-2xl font-bold group-hover:text-[#fd5e53] transition-colors">Multiple Cuisines</h3>
-            <p className="text-gray-600 text-lg mt-1">Wide Variety of Cuisines</p>
-          </div>
-          <div className="cursor-pointer group" onClick={() => setDeliveryImg('/images/ordertrack.jpg')}>
-            <h3 className="text-2xl font-bold group-hover:text-[#fd5e53] transition-colors">Bulk Food Delivery</h3>
-            <p className="text-gray-600 text-lg mt-1">Deliver For larger groups or events</p>
-          </div>
-        </div>
-      </section>
+            <h1 className="mt-7 max-w-3xl text-5xl font-black leading-[1.02] tracking-tight text-gray-950 sm:text-6xl lg:text-7xl">
+              Good food.
+              <span className="block text-[#f45d52]">No hidden surprises.</span>
+            </h1>
 
-      {/* 4. Red Banner */}
-      <section className="bg-[#fd5e53] text-white text-center py-16 mx-4 md:mx-16 rounded-xl shadow-lg my-10">
-        <h2 className="text-4xl font-bold">Craving Delecious Food Delivered to Your Doorstep?</h2>
-      </section>
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-gray-600 sm:text-xl">
+              Crave connects customers, restaurants and delivery partners
+              through a transparent, reliable and fairly priced food-delivery
+              experience.
+            </p>
 
-      {/* 5. Subscription Features */}
-      <section className="flex flex-col md:flex-row items-center justify-between px-10 py-16 max-w-7xl mx-auto gap-12">
-        <div className="flex-1 space-y-8">
-          <div className="cursor-pointer group" onClick={() => setSubImg('/images/subscription.jpg')}>
-            <h3 className="text-2xl font-bold group-hover:text-[#fd5e53] transition-colors">Subscription Services</h3>
-            <p className="text-gray-600 text-lg mt-1">Offering convenience and customization</p>
-          </div>
-          <div className="cursor-pointer group" onClick={() => setSubImg('/images/time.jpg')}>
-            <h3 className="text-2xl font-bold group-hover:text-[#fd5e53] transition-colors">Scheduled Deliveries</h3>
-            <p className="text-gray-600 text-lg mt-1">Order Food Anytime</p>
-          </div>
-          <div className="cursor-pointer group" onClick={() => setSubImg('/images/donation.jpg')}>
-            <h3 className="text-2xl font-bold group-hover:text-[#fd5e53] transition-colors">Donation Programs</h3>
-            <p className="text-gray-600 text-lg mt-1">Contribute to food banks</p>
-          </div>
-        </div>
-        <div className="flex-1">
-          <img src={subImg} alt="Subscription Feature" className="w-full rounded-2xl shadow-xl" />
-        </div>
-      </section>
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <Link
+                to="/menu"
+                className="inline-flex items-center justify-center gap-3 rounded-2xl bg-[#f45d52] px-7 py-4 font-black text-white shadow-lg shadow-[#f45d52]/20 transition-all hover:-translate-y-1 hover:bg-black"
+              >
+                Explore Our Menu
+                <i className="fa-solid fa-arrow-right" />
+              </Link>
 
-      {/* 6. Pricing Plans */}
-      <section className="text-center py-16 px-4 bg-white">
-        <p className="text-lg text-gray-600">Choose the Perfect Plan for Yourself!</p>
-        <h2 className="text-4xl font-bold my-4">Pricing Plan</h2>
-        <p className="text-lg text-gray-600 mb-8">A World Of Flavor Delivered</p>
-        
-        {/* Toggle */}
-        <div className="inline-flex border-2 border-[#fd5e53] mb-12">
-          <button onClick={() => setBilling('monthly')} className={`px-8 py-2 text-lg font-bold transition-colors ${billing === 'monthly' ? 'bg-[#fd5e53] text-white' : 'text-[#fd5e53] bg-white'}`}>Monthly</button>
-          <button onClick={() => setBilling('yearly')} className={`px-8 py-2 text-lg font-bold transition-colors ${billing === 'yearly' ? 'bg-[#fd5e53] text-white' : 'text-[#fd5e53] bg-white'}`}>Yearly</button>
-        </div>
-
-        {/* Cards */}
-        <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
-          {[{
-            name: 'Basic Plan', monthly: '₹ 59/Month', yearly: '₹ 599/Year', features: ['✔ 10% off on first order.', '✔ Standard shipping.', '✘ Free delivery on all orders.', '✘ Advanced customization options.']
-          }, {
-            name: 'Business Plan', monthly: '₹ 119/Month', yearly: '₹ 1199/Year', features: ['✔ Free delivery on all orders.', '✔ 30% off on all orders.', '✔ Wider range of meal options.', '✔ Corporate discounts.', '✘ Bulk ordering capabilities', '✘ Special events catering']
-          }, {
-            name: 'Enterprise Plan', monthly: '₹ 299/Month', yearly: '₹ 2999/Year', features: ['✔ Free delivery on all orders.', '✔ 45% off on all orders.', '✔ Exclusive meal plans.', '✔ Bulk ordering capabilities', '✔ Special events catering', '✔ Comprehensive solutions for large organizations']
-          }].map((plan, index) => (
-            <div key={index} className="bg-[#fd5e53] text-white p-8 rounded-xl shadow-xl w-80 flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
-              <p className="text-xl mb-4">{plan.name}</p>
-              <h3 className="text-3xl font-bold mb-6">{billing === 'monthly' ? plan.monthly : plan.yearly}</h3>
-              <div className="text-left space-y-3 mb-8 w-full">
-                {plan.features.map((f, i) => <p key={i}>{f}</p>)}
-              </div>
-              <Link to="/register" className="mt-auto bg-white text-[#fd5e53] font-bold py-3 w-full rounded hover:bg-black hover:text-white transition-colors border-2 border-transparent hover:border-black">
-                Choose Plan
+              <Link
+                to="/about"
+                className="inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-gray-900 bg-white px-7 py-4 font-black text-gray-900 transition-all hover:-translate-y-1 hover:bg-gray-900 hover:text-white"
+              >
+                Why Crave?
               </Link>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* 7. Discover CRAVE Ladder */}
-      <section className="flex flex-col md:flex-row justify-between items-center px-10 py-20 max-w-7xl mx-auto gap-16">
-        <div className="flex-1">
-          <h2 className="text-4xl font-bold mb-6">Discover <span className="text-[#fd5e53] underline">CRAVE</span></h2>
-          <p className="text-lg text-gray-700 leading-relaxed mb-8">
-            Crave is your ultimate culinary companion, dedicated to delivering exceptional food experiences right to your doorstep. With a passion for taste and convenience, we've curated a diverse selection of restaurants, from local gems to international favorites.
-          </p>
-          <Link to="/about" className="bg-[#fd5e53] text-white px-8 py-3 rounded font-bold hover:bg-black transition-colors">
-            About Us
-          </Link>
-        </div>
-        <div className="flex-1 space-y-6">
-          <div className="bg-white p-6 shadow-md rounded-lg border border-gray-100">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">01 &emsp; Browse Menu</h3>
-            <p className="text-gray-600">Explore our wide range of delicious dishes on the menu.</p>
-          </div>
-          <div className="bg-white p-6 shadow-md rounded-lg border border-gray-100">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">02 &emsp; Place Order</h3>
-            <p className="text-gray-600">Select your favorite items and place your order with ease.</p>
-          </div>
-          <div className="bg-white p-6 shadow-md rounded-lg border border-gray-100">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">03 &emsp; Track Delivery</h3>
-            <p className="text-gray-600">Monitor the status of your order and track the delivery in real-time.</p>
-          </div>
-          <div className="bg-[#fd5e53] text-white p-6 shadow-lg rounded-lg -translate-x-4">
-            <h3 className="text-xl font-bold mb-2">04 &emsp; Enjoy Your Meal</h3>
-            <p className="text-white opacity-90">Sit back, relax, and enjoy a tasty meal delivered right to your doorstep.</p>
-          </div>
-        </div>
-      </section>
+            <div className="mt-10 grid max-w-xl grid-cols-3 gap-4">
+              <div>
+                <p className="text-2xl font-black text-gray-950">Clear</p>
+                <p className="mt-1 text-sm text-gray-500">Fee breakdown</p>
+              </div>
 
-      {/* 8. Reviews */}
-      <section className="text-center py-16 px-4 bg-gray-50">
-        <h2 className="text-4xl font-bold mb-2">Reviews</h2>
-        <p className="text-lg text-gray-600 mb-10">Some Testimonials</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto text-left">
-          {[{
-            name: 'Rajesh Gupta', img: 'review1.png', stars: 5, text: "I've been using CRAVE for years. Their app is user-friendly, and the delivery is usually prompt. I love the variety of restaurants they offer. The food always arrives hot and fresh."
-          }, {
-            name: 'Aanya Patel', img: 'review2.png', stars: 4, text: "This is my go-to for food delivery. They have a wide range of cuisines and often offer great deals. The delivery drivers are always polite and efficient."
-          }, {
-            name: 'Aryan Singh', img: 'review3.png', stars: 4, text: "Crave is convenient to order food and track your delivery in one place. The food quality is generally good, and the delivery times are reliable."
-          }, {
-            name: 'Aarav Sharma', img: 'review4.png', stars: 4, text: "It is great for quick and easy deliveries. I've used it to order groceries, essentials, and even small items from local stores. The delivery is usually very fast."
-          }].map((review, index) => (
-            <div key={index} className="bg-white p-8 border-2 border-black rounded-lg">
-              <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-4 font-bold text-lg">
-                  <img src={`/images/${review.img}`} alt={review.name} className="w-12 h-12 rounded-full border border-gray-200" />
-                  {review.name}
-                </div>
-                <div className="text-black text-xl">
-                  {[...Array(5)].map((_, i) => (
-                    <i key={i} className={`fa-star ${i < review.stars ? 'fa-solid' : 'fa-regular'}`}></i>
-                  ))}
+              <div className="border-l border-gray-200 pl-4">
+                <p className="text-2xl font-black text-gray-950">Fair</p>
+                <p className="mt-1 text-sm text-gray-500">Restaurant charges</p>
+              </div>
+
+              <div className="border-l border-gray-200 pl-4">
+                <p className="text-2xl font-black text-gray-950">Honest</p>
+                <p className="mt-1 text-sm text-gray-500">Menu pricing</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-xl">
+            <div className="absolute -left-6 top-16 hidden rounded-2xl bg-white p-4 shadow-xl sm:block">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-100 text-green-700">
+                  <i className="fa-solid fa-circle-check" />
+                </span>
+
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-gray-400">
+                    Pricing
+                  </p>
+                  <p className="font-black text-gray-900">No hidden markup</p>
                 </div>
               </div>
-              <p className="text-gray-700 leading-relaxed">{review.text}</p>
             </div>
-          ))}
+
+            <div className="rounded-[2.5rem] border border-white bg-white p-5 shadow-2xl shadow-gray-300/50">
+              <div className="rounded-[2rem] bg-gradient-to-br from-[#f45d52] via-[#fb765e] to-[#ffaf78] p-7 text-white">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-bold text-white/75">
+                      Tonight’s craving
+                    </p>
+
+                    <h2 className="mt-1 text-3xl font-black">
+                      Something delicious
+                    </h2>
+                  </div>
+
+                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur">
+                    <i className="fa-solid fa-burger text-2xl" />
+                  </span>
+                </div>
+
+                <div className="mt-10 rounded-3xl bg-white p-5 text-gray-900 shadow-lg">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-4xl">
+                      🍕
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-lg font-black">
+                            Your favourite meal
+                          </p>
+
+                          <p className="mt-1 text-sm text-gray-500">
+                            Fresh, nearby and transparently priced
+                          </p>
+                        </div>
+
+                        <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-black text-green-700">
+                          Open
+                        </span>
+                      </div>
+
+                      <div className="mt-5 flex items-center gap-5 text-sm font-bold text-gray-600">
+                        <span className="flex items-center gap-2">
+                          <i className="fa-solid fa-clock text-[#f45d52]" />
+                          Fast
+                        </span>
+
+                        <span className="flex items-center gap-2">
+                          <i className="fa-solid fa-location-dot text-[#f45d52]" />
+                          Nearby
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-5 grid grid-cols-2 gap-4">
+                  <div className="rounded-2xl bg-black/15 p-4 backdrop-blur">
+                    <p className="text-xs font-bold uppercase tracking-wider text-white/70">
+                      Restaurant price
+                    </p>
+                    <p className="mt-2 text-xl font-black">Transparent</p>
+                  </div>
+
+                  <div className="rounded-2xl bg-black/15 p-4 backdrop-blur">
+                    <p className="text-xs font-bold uppercase tracking-wider text-white/70">
+                      Delivery status
+                    </p>
+                    <p className="mt-2 text-xl font-black">Trackable</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute -bottom-7 -right-4 rounded-2xl bg-gray-950 p-5 text-white shadow-xl sm:-right-8">
+              <div className="flex items-center gap-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f45d52]">
+                  <i className="fa-solid fa-receipt" />
+                </span>
+
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-gray-400">
+                    Checkout
+                  </p>
+                  <p className="font-black">Every charge explained</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
+
+      <section className="bg-white px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-black uppercase tracking-[0.25em] text-[#f45d52]">
+              Built differently
+            </p>
+
+            <h2 className="mt-4 text-4xl font-black tracking-tight text-gray-950 sm:text-5xl">
+              Food delivery that works fairly for everyone
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Crave is being designed around transparency, operational fairness
+              and a simpler ordering experience.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {benefits.map((benefit) => (
+              <article
+                key={benefit.title}
+                className="group rounded-3xl border border-gray-100 bg-[#fbfcfc] p-7 transition-all duration-300 hover:-translate-y-2 hover:border-[#f45d52]/20 hover:shadow-xl"
+              >
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fff0ed] text-xl text-[#f45d52] transition-colors group-hover:bg-[#f45d52] group-hover:text-white">
+                  <i className={`fa-solid ${benefit.icon}`} />
+                </span>
+
+                <h3 className="mt-6 text-2xl font-black text-gray-950">
+                  {benefit.title}
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  {benefit.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f5f8f7] px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid items-center gap-14 lg:grid-cols-[0.85fr_1.15fr]">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#f45d52]">
+                Simple journey
+              </p>
+
+              <h2 className="mt-4 text-4xl font-black tracking-tight text-gray-950 sm:text-5xl">
+                From craving to doorstep
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-gray-600">
+                Ordering should feel straightforward—not like solving hidden
+                prices, unclear statuses or confusing delivery flows.
+              </p>
+
+              <Link
+                to="/menu"
+                className="mt-8 inline-flex items-center gap-3 font-black text-[#f45d52] transition-colors hover:text-black"
+              >
+                Start exploring
+                <i className="fa-solid fa-arrow-right" />
+              </Link>
+            </div>
+
+            <div className="space-y-5">
+              {steps.map((step) => (
+                <article
+                  key={step.number}
+                  className="flex gap-5 rounded-3xl border border-gray-100 bg-white p-6 shadow-sm transition-transform hover:translate-x-2"
+                >
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gray-950 text-sm font-black text-white">
+                    {step.number}
+                  </span>
+
+                  <div>
+                    <h3 className="text-xl font-black text-gray-950">
+                      {step.title}
+                    </h3>
+
+                    <p className="mt-2 leading-7 text-gray-600">
+                      {step.description}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-6 py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="overflow-hidden rounded-[2.5rem] bg-gray-950 px-7 py-14 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:px-16">
+            <div className="max-w-2xl">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#f45d52]">
+                Hungry already?
+              </p>
+
+              <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">
+                Your next favourite meal starts here.
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-gray-400">
+                Explore Crave and see how a clearer, fairer food-delivery
+                experience can feel.
+              </p>
+            </div>
+
+            <Link
+              to="/menu"
+              className="mt-8 inline-flex shrink-0 items-center justify-center gap-3 rounded-2xl bg-[#f45d52] px-7 py-4 font-black text-white transition-all hover:-translate-y-1 hover:bg-white hover:text-gray-950 lg:mt-0"
+            >
+              Explore Menu
+              <i className="fa-solid fa-arrow-right" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
