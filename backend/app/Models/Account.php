@@ -3,12 +3,18 @@
 namespace App\Models;
 use App\Enums\AccountRole;
 use App\Enums\AccountStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 final class Account extends Authenticatable
 {
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+
     /**
      *@var list<string>
      */
@@ -42,6 +48,10 @@ final class Account extends Authenticatable
 
     public function customerProfile() : HasOne{
         return $this->hasOne(CustomerProfile::class);
+    }
+
+    public function restaurant() : HasOne{
+        return $this->hasOne(Restaurant::class, 'owner_account_id');
     }
 
 }

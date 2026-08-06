@@ -28,9 +28,13 @@ const AddAddress = lazy(() => import("../features/customer/addresses/pages/AddAd
 
 const EditAddress = lazy(() => import("../features/customer/addresses/pages/EditAddress.jsx"),);
 
+const RestaurantDashboardLayout = lazy(() => import("../features/restaurant/layouts/RestaurantDashboardLayout.jsx"),);
+
+const RestaurantDashboard = lazy(() => import("../features/restaurant/pages/RestaurantDashboard.jsx"),);
+
 function PageLoader() {
   return (
-    <main className="flex min-h-[520px] items-center justify-center bg-[#f7faf9] px-6">
+    <main className="flex min-h-130 items-center justify-center bg-[#f7faf9] px-6">
       <div className="text-center">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#fff0ed]">
           <span className="h-8 w-8 animate-spin rounded-full border-4 border-[#f45d52]/20 border-t-[#f45d52]" />
@@ -54,67 +58,78 @@ function App() {
 
         <div className="flex-1">
           <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
+            <Routes>
+              <Route path="/" element={<Home />} />
 
-            <Route path="/menu" element={<Menu />} />
+              <Route path="/menu" element={<Menu />} />
 
-            <Route path="/about" element={<About />} />
+              <Route path="/about" element={<About />} />
 
-            <Route path="/cart" element={<Cart />} />
+              <Route path="/cart" element={<Cart />} />
 
-            <Route
-              path="/login"
-              element={
-                <GuestRoute>
-                  <Login />
-                </GuestRoute>
-              }
-            />
+              <Route
+                path="/login"
+                element={
+                  <GuestRoute>
+                    <Login />
+                  </GuestRoute>
+                }
+              />
 
-            <Route
-              path="/register"
-              element={<Navigate to="/login" replace />}
-            />
+              <Route
+                path="/register"
+                element={<Navigate to="/login" replace />}
+              />
 
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <CustomerDashboard />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <CustomerDashboard />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="/dashboard/addresses"
-              element={
-                <ProtectedRoute>
-                  <SavedAddresses />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/dashboard/addresses"
+                element={
+                  <ProtectedRoute>
+                    <SavedAddresses />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="/dashboard/addresses/new"
-              element={
-                <ProtectedRoute>
-                  <AddAddress />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/dashboard/addresses/new"
+                element={
+                  <ProtectedRoute>
+                    <AddAddress />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route
-              path="/dashboard/addresses/:addressId/edit"
-              element={
-                <ProtectedRoute>
-                  <EditAddress />
-                </ProtectedRoute>
-              }
-            />
+              <Route
+                path="/dashboard/addresses/:addressId/edit"
+                element={
+                  <ProtectedRoute>
+                    <EditAddress />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+              <Route
+                path="/dashboard/restaurant"
+                element={
+                  <ProtectedRoute>
+                    <RestaurantDashboardLayout>
+                      <RestaurantDashboard />
+                    </RestaurantDashboardLayout>
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </Suspense>
         </div>
 
