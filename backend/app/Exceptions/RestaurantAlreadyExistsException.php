@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
-use Exception;
+use RuntimeException;
 
-final class RestaurantAlreadyExistsException extends Exception
+final class RestaurantAlreadyExistsException extends RuntimeException
 {
+    public function __construct()
+    {
+        parent::__construct('The restaurant owner already has a restaurant.');
+    }
 }
