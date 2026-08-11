@@ -4,10 +4,10 @@ namespace App\Services\Restaurant;
 
 use App\Enums\AccountRole;
 use App\Enums\AccountStatus;
+use App\Exceptions\RestaurantAlreadyExistsException;
 use App\Models\Account;
 use App\Models\Restaurant;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -32,14 +32,7 @@ final class CreateRestaurantService
             }
 
             if ($lockedAccount->restaurant()->exists()) {
-                throw new HttpResponseException(
-                    response()->json([
-                        'error' => [
-                            'code' => 'RESTAURANT_ALREADY_EXISTS',
-                            'message' => 'The restaurant owner already has a restaurant.',
-                        ],
-                    ], 409)
-                );
+                throw new RestaurantAlreadyExistsException();
             }
 
             $restaurant = $lockedAccount->restaurant()->create([
