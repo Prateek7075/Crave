@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AssignRequestId;
 use App\Exceptions\ApiException;
+use App\Exceptions\RestaurantAlreadyExistsException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -52,6 +53,20 @@ return Application::configure(basePath: dirname(__DIR__))
           function(Request $request, \Throwable $exception): bool {
               return $request->is('api/*') || $request->expectsJson();
           }
+        );
+
+        $exceptions->render(
+            function(RestaurantAlreadyExistsException $e, Request $request): JsonResponse {
+                $requestId = $request->attributes->get(AssignRequestId::REQUEST_ATTRIBUTE);
+
+                return response()->json([
+                    'error' => [
+                        'code' => 'RESTAURANT_ALREADY_EXISTS',
+                        'message' => $e->getMessage(),
+                    ],
+                    'requestId' => is_string($requestId) ? $requestId : null,
+                ], 409);
+            }
         );
 
         $exceptions->render(
@@ -128,7 +143,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->render(
             function(\Throwable $e, Request $request): ?JsonResponse {
-                if(!$request->is('api/*') || $e instanceof ApiException || $e instanceof ValidationException || $e instanceof HttpExceptionInterface){
+                if(!$request->is('api/*') || $e instanceof ApiException || $e instanceof ValidationException || $e instanceof HttpExceptionInterface || $e instanceof RestaurantAlreadyExistsException){
                     return null;
                 }
 
