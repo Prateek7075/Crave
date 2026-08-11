@@ -25,41 +25,23 @@ final class CreateRestaurantEndpointTest extends TestCase
 
         Sanctum::actingAs($owner);
 
-        $response = $this->postJson(
-            '/api/v1/restaurants',
-            [
-                'name' => 'Crave Test Kitchen',
-                'description' => 'Fresh meals prepared daily.',
-            ],
-        );
+        $response = $this->postJson('/api/v1/restaurants', [
+            'name' => 'Crave Test Kitchen',
+            'description' => 'Fresh meals prepared daily.',
+        ]);
 
         $response
             ->assertCreated()
-            ->assertJsonPath(
-                'data.name',
-                'Crave Test Kitchen',
-            )
-            ->assertJsonPath(
-                'data.slug',
-                'crave-test-kitchen',
-            )
-            ->assertJsonPath(
-                'data.verificationStatus',
-                RestaurantVerificationStatus::Draft->value,
-            )
-            ->assertJsonPath(
-                'data.operatingStatus',
-                RestaurantOperatingStatus::Closed->value,
-            );
+            ->assertJsonPath('data.name', 'Crave Test Kitchen')
+            ->assertJsonPath('data.slug', 'crave-test-kitchen')
+            ->assertJsonPath('data.verificationStatus', RestaurantVerificationStatus::Draft->value)
+            ->assertJsonPath('data.operatingStatus', RestaurantOperatingStatus::Closed->value);
 
-        $this->assertDatabaseHas(
-            'restaurants',
-            [
-                'owner_account_id' => $owner->id,
-                'name' => 'Crave Test Kitchen',
-                'slug' => 'crave-test-kitchen',
-            ],
-        );
+        $this->assertDatabaseHas('restaurants', [
+            'owner_account_id' => $owner->id,
+            'name' => 'Crave Test Kitchen',
+            'slug' => 'crave-test-kitchen',
+        ]);
     }
 
     public function test_a_customer_cannot_create_a_restaurant(): void
@@ -72,32 +54,23 @@ final class CreateRestaurantEndpointTest extends TestCase
 
         Sanctum::actingAs($customer);
 
-        $response = $this->postJson(
-            '/api/v1/restaurants',
-            [
-                'name' => 'Illegal Restaurant',
-                'description' => null,
-            ],
-        );
+        $response = $this->postJson('/api/v1/restaurants', [
+            'name' => 'Illegal Restaurant',
+            'description' => null,
+        ]);
 
         $response->assertForbidden();
 
-        $this->assertDatabaseMissing(
-            'restaurants',
-            [
-                'name' => 'Illegal Restaurant',
-            ],
-        );
+        $this->assertDatabaseMissing('restaurants', [
+            'name' => 'Illegal Restaurant',
+        ]);
     }
 
     public function test_a_guest_cannot_create_a_restaurant(): void
     {
-        $response = $this->postJson(
-            '/api/v1/restaurants',
-            [
-                'name' => 'Guest Restaurant',
-            ],
-        );
+        $response = $this->postJson('/api/v1/restaurants', [
+            'name' => 'Guest Restaurant',
+        ]);
 
         $response->assertUnauthorized();
     }
@@ -112,20 +85,19 @@ final class CreateRestaurantEndpointTest extends TestCase
 
         Sanctum::actingAs($owner);
 
-        $this->postJson(
-            '/api/v1/restaurants',
-            [
-                'name' => 'First Restaurant',
-            ],
-        )->assertCreated();
+        $this->postJson('/api/v1/restaurants', [
+            'name' => 'First Restaurant',
+        ])->assertCreated();
 
-        $response = $this->postJson(
-            '/api/v1/restaurants',
-            [
-                'name' => 'Second Restaurant',
-            ],
-        );
+        $response = $this->postJson('/api/v1/restaurants', [
+            'name' => 'Second Restaurant',
+        ]);
 
-        $response->assertStatus(409);
+        $response
+            ->assertConflict()
+            ->assertJsonPath('error.code', 'RESTAURANT_ALREADY_EXISTS')
+            ->assertJsonPath('error.message', 'The restaurant owner already has a restaurant.');
+
+        $this->assertDatabaseCount('restaurants', 1);
     }
 }
