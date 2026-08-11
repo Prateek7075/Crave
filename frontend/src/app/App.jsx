@@ -20,17 +20,61 @@ const Login = lazy(() => import("../features/auth/pages/Login.jsx"));
 
 const Cart = lazy(() => import("../features/cart/pages/Cart.jsx"));
 
-const CustomerDashboard = lazy(() => import("../features/customer/dashboard/pages/CustomerDashboard.jsx"),);
+const CustomerDashboard = lazy(
+  () => import("../features/customer/dashboard/pages/CustomerDashboard.jsx"),
+);
 
-const SavedAddresses = lazy(() => import("../features/customer/addresses/pages/SavedAddresses.jsx"),);
+const SavedAddresses = lazy(
+  () => import("../features/customer/addresses/pages/SavedAddresses.jsx"),
+);
 
-const AddAddress = lazy(() => import("../features/customer/addresses/pages/AddAddress.jsx"),);
+const AddAddress = lazy(
+  () => import("../features/customer/addresses/pages/AddAddress.jsx"),
+);
 
-const EditAddress = lazy(() => import("../features/customer/addresses/pages/EditAddress.jsx"),);
+const EditAddress = lazy(
+  () => import("../features/customer/addresses/pages/EditAddress.jsx"),
+);
 
-const RestaurantDashboardLayout = lazy(() => import("../features/restaurant/layouts/RestaurantDashboardLayout.jsx"),);
+const RestaurantLogin = lazy(
+  () => import("../features/auth/pages/RestaurantLogin.jsx"),
+);
 
-const RestaurantDashboard = lazy(() => import("../features/restaurant/pages/RestaurantDashboard.jsx"),);
+const RestaurantRegister = lazy(
+  () => import("../features/auth/pages/RestaurantRegister.jsx"),
+);
+const RestaurantDashboardLayout = lazy(
+  () => import("../features/restaurant/layouts/RestaurantDashboardLayout.jsx"),
+);
+
+const RestaurantDashboard = lazy(
+  () => import("../features/restaurant/pages/RestaurantDashboard.jsx"),
+);
+
+const RestaurantCategories = lazy(
+  () =>
+    import("../features/restaurant/categories/pages/RestaurantCategories.jsx"),
+);
+
+const RestaurantProfile = lazy(
+  () => import("../features/restaurant/pages/RestaurantProfile.jsx"),
+);
+
+const RestaurantMenu = lazy(
+  () => import("../features/restaurant/pages/RestaurantMenu.jsx"),
+);
+
+const RestaurantOrders = lazy(
+  () => import("../features/restaurant/pages/RestaurantOrders.jsx"),
+);
+
+const RestaurantAnalytics = lazy(
+  () => import("../features/restaurant/pages/RestaurantAnalytics.jsx"),
+);
+
+const RestaurantSettings = lazy(
+  () => import("../features/restaurant/pages/RestaurantSettings.jsx"),
+);
 
 function PageLoader() {
   return (
@@ -49,6 +93,7 @@ function PageLoader() {
     </main>
   );
 }
+
 function App() {
   return (
     <>
@@ -79,6 +124,24 @@ function App() {
               <Route
                 path="/register"
                 element={<Navigate to="/login" replace />}
+              />
+
+              <Route
+                path="/restaurant/login"
+                element={
+                  <GuestRoute>
+                    <RestaurantLogin />
+                  </GuestRoute>
+                }
+              />
+
+              <Route
+                path="/restaurant/register"
+                element={
+                  <GuestRoute>
+                    <RestaurantRegister />
+                  </GuestRoute>
+                }
               />
 
               <Route
@@ -121,12 +184,24 @@ function App() {
                 path="/dashboard/restaurant"
                 element={
                   <ProtectedRoute>
-                    <RestaurantDashboardLayout>
-                      <RestaurantDashboard />
-                    </RestaurantDashboardLayout>
+                    <RestaurantDashboardLayout />
                   </ProtectedRoute>
                 }
-              />
+              >
+                <Route index element={<RestaurantDashboard />} />
+
+                <Route path="profile" element={<RestaurantProfile />} />
+
+                <Route path="categories" element={<RestaurantCategories />} />
+
+                <Route path="menu" element={<RestaurantMenu />} />
+
+                <Route path="orders" element={<RestaurantOrders />} />
+
+                <Route path="analytics" element={<RestaurantAnalytics />} />
+
+                <Route path="settings" element={<RestaurantSettings />} />
+              </Route>
 
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api\V1\Restaurant;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateMenuCategoryRequest extends FormRequest
 {
@@ -22,29 +23,64 @@ class UpdateMenuCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var \App\Models\Account $account */
+        $account = auth()->user();
+        $restaurant = $account?->restaurant()->first();
+        $restaurantId = $restaurant?->id;
+        $categoryId = $this->route('categoryId');
+
         return [
             'name' => [
+                'bail',
                 'sometimes',
+                'required',
                 'string',
                 'max:255',
+                Rule::unique('menu_categories', 'name')
+                    ->where(function ($query) use ($restaurantId) {
+                        return $query->where('restaurant_id', $restaurantId);
+                    })
+                    ->ignore($categoryId),
             ],
-
-            'description' => [
-                'nullable',
-                'string',
-                'max:2000',
-            ],
-
-            'display_order' => [
-                'nullable',
-                'integer',
-                'min:0',
-            ],
-
-            'is_active' => [
-                'nullable',
-                'boolean',
-            ],
+            'description' => ['bail', 'nullable', 'string', 'max:2000'],
+            'display_order' => ['bail', 'sometimes', 'nullable', 'integer', 'min:0'],
+            'is_active' => ['bail', 'sometimes', 'boolean'],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $merged = [];
+
+        if ($this->has('name')) {
+            $merged['name'] = is_string($this->input('name')) ? trim($this->input('name')) : $this->input('name');
+        }
+
+        if ($this->has('description')) {
+            $merged['description'] = $this->normalizeNullableString($this->input('description'));
+        }
+
+        if ($this->has('display_order')) {
+            $merged['display_order'] = $this->input('display_order') !== null ? (int) $this->input('display_order') : 0;
+        }
+
+        if ($this->has('is_active')) {
+            $merged['is_active'] = (bool) $this->input('is_active');
+        }
+
+        if (!empty($merged)) {
+            $this->merge($merged);
+        }
+    }
+
+    private function normalizeNullableString(mixed $value): ?string
+    {
+        if (!is_string($value)) {
+            return null;
+        }
+
+        $trimmed = trim($value);
+
+        return $trimmed === '' ? null : $trimmed;
     }
 }

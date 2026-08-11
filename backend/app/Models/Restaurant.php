@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Restaurant extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'description'
+        'name', 'slug', 'description',
+        'owner_account_id'
     ];
 
 

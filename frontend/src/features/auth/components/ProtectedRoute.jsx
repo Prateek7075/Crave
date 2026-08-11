@@ -9,6 +9,8 @@ export default function ProtectedRoute({ children }) {
     isAuthenticated,
     initializationError,
     refreshAuthentication,
+    isRestaurantOwner,
+    isCustomer,
   } = useContext(AuthContext);
 
   const location = useLocation();
@@ -51,10 +53,21 @@ export default function ProtectedRoute({ children }) {
     );
   }
 
+  // 1. Identify which zone the user is trying to access
+  const isTryingToAccessRestaurant = location.pathname.startsWith(
+    "/dashboard/restaurant",
+  );
+
+  // 2. Handle completely unauthenticated users
   if (!isAuthenticated) {
+    // Send them to the appropriate login portal based on the URL they attempted to visit
+    const loginRedirect = isTryingToAccessRestaurant
+      ? "/restaurant/login"
+      : "/login";
+
     return (
       <Navigate
-        to="/login"
+        to={loginRedirect}
         replace
         state={{
           from: location.pathname + location.search,
@@ -63,5 +76,21 @@ export default function ProtectedRoute({ children }) {
     );
   }
 
+  // 3. Enforce strict role-based boundaries for authenticated users
+  if (isTryingToAccessRestaurant && !isRestaurantOwner) {
+    // A normal customer is trying to view the restaurant owner dashboard -> Kick to customer dashboard
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  if (
+    location.pathname.startsWith("/dashboard") &&
+    !isTryingToAccessRestaurant &&
+    !isCustomer
+  ) {
+    // A restaurant owner is trying to view the normal customer dashboard -> Kick to restaurant dashboard
+    return <Navigate to="/dashboard/restaurant" replace />;
+  }
+
+  // 4. Fully Authorized
   return children;
 }

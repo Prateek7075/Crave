@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "target": "ES2022",
+        "skipLibCheck": true,
+        "lib": [
+            "ES2022",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "types": [
+            "node",
+            "mocha"
+        ],
+        "sourceMap": true,
+        "rootDir": "src",
+        "strict": true
+    }
+}

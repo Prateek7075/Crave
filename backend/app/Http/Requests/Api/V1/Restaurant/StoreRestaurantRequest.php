@@ -31,6 +31,7 @@ class StoreRestaurantRequest extends FormRequest
             ],
 
             'description' => [
+                'bail',
                 'nullable',
                 'string',
                 'max:1000',
@@ -41,9 +42,7 @@ class StoreRestaurantRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'name' => $this->normalizeRequiredString(
-                $this->input('name'),
-            ),
+            'name' => is_string($this->input('name')) ? trim($this->input('name')) : $this->input('name'),
 
             'description' =>
                 $this->normalizeNullableString(
@@ -51,30 +50,14 @@ class StoreRestaurantRequest extends FormRequest
                 ),
         ]);
     }
+    private function normalizeNullableString(mixed $value,): ?string {
 
-    private function normalizeRequiredString(
-        mixed $value,
-    ): mixed {
-        return is_string($value)
-            ? trim($value)
-            : $value;
-    }
-
-    private function normalizeNullableString(
-        mixed $value,
-    ): mixed {
-        if ($value === null) {
+        if (!is_string($value)) {
             return null;
         }
 
-        if (!is_string($value)) {
-            return $value;
-        }
+        $trimmed = trim($value);
 
-        $normalizedValue = trim($value);
-
-        return $normalizedValue === ''
-            ? null
-            : $normalizedValue;
+        return $trimmed === '' ? null : $trimmed;
     }
 }

@@ -19,7 +19,7 @@ final class Account extends Authenticatable
      *@var list<string>
      */
 
-    protected $fillable = ['role', 'status', 'mobile', 'email', 'password_hash', 'full_name'];
+    protected $fillable = ['role', 'status', 'mobile', 'email', 'password_hash',];
 
     /**
      *@var list<string>

@@ -23,12 +23,35 @@ class UpdateRestaurantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255'],
-            'description' => ['nullable', 'string', 'max:5000'],
-            'phone' => ['nullable', 'string', 'max:20'],
-            'email' => ['nullable', 'email', 'max:255'],
-            'logo_url' => ['nullable', 'url', 'max:2048'],
-            'banner_url' => ['nullable', 'url', 'max:2048'],
+            'name' => ['bail', 'sometimes', 'required', 'string', 'max:120'],
+            'description' => ['bail', 'nullable', 'string', 'max:1000'],
         ];
+    }
+    protected function prepareForValidation(): void
+    {
+        $merged = [];
+
+        if ($this->has('name')) {
+            $merged['name'] = is_string($this->input('name')) ? trim($this->input('name')) : $this->input('name');
+        }
+
+        if ($this->has('description')) {
+            $merged['description'] = $this->normalizeNullableString($this->input('description'));
+        }
+
+        if (!empty($merged)) {
+            $this->merge($merged);
+        }
+    }
+
+    private function normalizeNullableString(mixed $value): ?string
+    {
+        if (!is_string($value)) {
+            return null;
+        }
+
+        $trimmed = trim($value);
+
+        return $trimmed === '' ? null : $trimmed;
     }
 }

@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\V1\Auth\LogoutController;
 use App\Http\Controllers\Api\V1\Customer\CustomerAddressController;
 use App\Http\Controllers\Api\V1\Restaurant\RestaurantController;
 use App\Http\Controllers\Api\V1\Restaurant\RestaurantMenuCategoryController;
+use App\Http\Controllers\Api\V1\Auth\RegisterRestaurantOwnerController;
+use App\Http\Controllers\Api\V1\Auth\LoginRestaurantOwnerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health/live', LiveHealthCheckController::class)->name('health.live');
@@ -17,6 +19,8 @@ Route::post('auth/customer/request-code', CustomerRequestCodeController::class)-
 Route::post('auth/customer/verify-code', CustomerVerifyCodeController::class)->name('auth.customer.verify-code');
 Route::get('/auth/me', CurrentCustomerController::class)->middleware('auth:sanctum')->name('auth.me');
 Route::post('/auth/logout', LogoutController::class)->middleware('auth:sanctum')->name('auth.logout');
+Route::post('auth/restaurant/register', RegisterRestaurantOwnerController::class)->name('auth.restaurant.register');
+Route::post('auth/restaurant/login', LoginRestaurantOwnerController::class)->name('auth.restaurant.login');
 Route::middleware('auth:sanctum')->prefix('customer')->group(function (): void {
     Route::get('/addresses', [CustomerAddressController::class, 'index',],);
     Route::get('/addresses/{addressId}', [CustomerAddressController::class, 'show',],)->whereNumber('addressId');

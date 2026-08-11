@@ -1,26 +1,17 @@
-import {
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import {
-  Link,
-  NavLink,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { useContext, useEffect, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
-import { AuthContext } from '../../features/auth/context/AuthContext.jsx';
-import { CartContext } from '../../features/cart/context/CartContext.jsx';
+import { AuthContext } from "../../features/auth/context/AuthContext.jsx";
+import { CartContext } from "../../features/cart/context/CartContext.jsx";
 
 function navigationClass({ isActive }) {
   return [
-    'rounded-lg px-4 py-2 text-sm font-bold',
-    'transition-colors duration-200',
+    "rounded-lg px-4 py-2 text-sm font-bold",
+    "transition-colors duration-200",
     isActive
-      ? 'bg-[#fff1ef] text-[#f45d52]'
-      : 'text-gray-700 hover:bg-gray-100 hover:text-black',
-  ].join(' ');
+      ? "bg-[#fff1ef] text-[#f45d52]"
+      : "text-gray-700 hover:bg-gray-100 hover:text-black",
+  ].join(" ");
 }
 
 export default function Navbar() {
@@ -29,49 +20,39 @@ export default function Navbar() {
     isAuthenticated,
     isLoading,
     logout,
+    isCustomer,
+    isRestaurantOwner,
   } = useContext(AuthContext);
 
-  const {
-    cartCount = 0,
-  } = useContext(CartContext);
+  const { cartCount = 0 } = useContext(CartContext);
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [isMenuOpen, setIsMenuOpen] =
-    useState(false);
-
-  const [isLoggingOut, setIsLoggingOut] =
-    useState(false);
-
-  const [logoutError, setLogoutError] =
-    useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [logoutError, setLogoutError] = useState("");
 
   useEffect(() => {
     setIsMenuOpen(false);
-    setLogoutError('');
+    setLogoutError("");
   }, [location.pathname]);
 
   const accountName =
-    user?.customerProfile?.fullName
-    || user?.username
-    || 'My Account';
+    user?.customerProfile?.fullName ||
+    user?.restaurant?.name ||
+    user?.username ||
+    "My Account";
 
   async function handleLogout() {
     setIsLoggingOut(true);
-    setLogoutError('');
+    setLogoutError("");
 
     try {
       await logout();
-
-      navigate('/', {
-        replace: true,
-      });
+      navigate("/", { replace: true });
     } catch (error) {
-      setLogoutError(
-        error?.message
-        || 'Logout could not be completed.',
-      );
+      setLogoutError(error?.message || "Logout could not be completed.");
     } finally {
       setIsLoggingOut(false);
     }
@@ -88,71 +69,57 @@ export default function Navbar() {
           <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#f45d52] text-white shadow-sm transition-transform group-hover:-rotate-6">
             <i className="fa-solid fa-utensils text-lg" />
           </span>
-
           <span className="text-3xl font-black tracking-tight text-[#f45d52]">
             Crave
           </span>
         </Link>
 
+        {/* Desktop Navigation */}
         <nav className="hidden items-center gap-2 lg:flex">
-          <NavLink
-            to="/"
-            end
-            className={navigationClass}
-          >
+          <NavLink to="/" end className={navigationClass}>
             Home
           </NavLink>
-
-          <NavLink
-            to="/menu"
-            className={navigationClass}
-          >
+          <NavLink to="/menu" className={navigationClass}>
             Explore Menu
           </NavLink>
-
-          <NavLink
-            to="/about"
-            className={navigationClass}
-          >
+          <NavLink to="/about" className={navigationClass}>
             About Us
           </NavLink>
 
-          {isAuthenticated && (
+          {isAuthenticated && isCustomer && (
             <>
-              <NavLink
-                to="/dashboard"
-                end
-                className={navigationClass}
-              >
+              <NavLink to="/dashboard" end className={navigationClass}>
                 Dashboard
               </NavLink>
-
-              <NavLink
-                to="/dashboard/addresses"
-                className={navigationClass}
-              >
+              <NavLink to="/dashboard/addresses" className={navigationClass}>
                 Addresses
               </NavLink>
             </>
           )}
+
+          {isAuthenticated && isRestaurantOwner && (
+            <NavLink to="/dashboard/restaurant" className={navigationClass}>
+              Partner Dashboard
+            </NavLink>
+          )}
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Link
-            to="/cart"
-            className="relative flex h-11 w-11 items-center justify-center rounded-xl text-gray-800 transition-colors hover:bg-gray-100 hover:text-[#f45d52]"
-            aria-label={`Cart with ${cartCount} items`}
-          >
-            <i className="fa-solid fa-cart-shopping text-xl" />
-
-            {cartCount > 0 && (
-              <span className="absolute -right-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-[#f45d52] px-1 text-[11px] font-black text-white">
-                {cartCount > 99
-                  ? '99+'
-                  : cartCount}
-              </span>
-            )}
-          </Link>
+          {/* Hide Cart for Restaurant Owners */}
+          {!isRestaurantOwner && (
+            <Link
+              to="/cart"
+              className="relative flex h-11 w-11 items-center justify-center rounded-xl text-gray-800 transition-colors hover:bg-gray-100 hover:text-[#f45d52]"
+              aria-label={`Cart with ${cartCount} items`}
+            >
+              <i className="fa-solid fa-cart-shopping text-xl" />
+              {cartCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-[#f45d52] px-1 text-[11px] font-black text-white">
+                  {cartCount > 99 ? "99+" : cartCount}
+                </span>
+              )}
+            </Link>
+          )}
 
           {isLoading && (
             <div className="h-11 w-28 animate-pulse rounded-xl bg-gray-200" />
@@ -170,51 +137,43 @@ export default function Navbar() {
           {!isLoading && isAuthenticated && (
             <>
               <Link
-                to="/dashboard"
+                to={isRestaurantOwner ? "/dashboard/restaurant" : "/dashboard"}
                 className="max-w-44 truncate rounded-xl border border-gray-200 px-4 py-3 text-sm font-bold text-gray-800 transition-colors hover:border-[#f45d52] hover:text-[#f45d52]"
                 title={accountName}
               >
                 {accountName}
               </Link>
-
               <button
                 type="button"
                 onClick={() => void handleLogout()}
                 disabled={isLoggingOut}
                 className="rounded-xl bg-black px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#f45d52] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {isLoggingOut
-                  ? 'Logging out...'
-                  : 'Logout'}
+                {isLoggingOut ? "Logging out..." : "Logout"}
               </button>
             </>
           )}
         </div>
 
+        {/* Mobile Nav Toggle */}
         <div className="flex items-center gap-2 lg:hidden">
-          <Link
-            to="/cart"
-            className="relative flex h-11 w-11 items-center justify-center rounded-xl text-gray-800"
-            aria-label={`Cart with ${cartCount} items`}
-          >
-            <i className="fa-solid fa-cart-shopping text-xl" />
-
-            {cartCount > 0 && (
-              <span className="absolute right-0 top-0 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-[#f45d52] px-1 text-[10px] font-black text-white">
-                {cartCount > 99
-                  ? '99+'
-                  : cartCount}
-              </span>
-            )}
-          </Link>
-
+          {!isRestaurantOwner && (
+            <Link
+              to="/cart"
+              className="relative flex h-11 w-11 items-center justify-center rounded-xl text-gray-800"
+              aria-label={`Cart with ${cartCount} items`}
+            >
+              <i className="fa-solid fa-cart-shopping text-xl" />
+              {cartCount > 0 && (
+                <span className="absolute right-0 top-0 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-[#f45d52] px-1 text-[10px] font-black text-white">
+                  {cartCount > 99 ? "99+" : cartCount}
+                </span>
+              )}
+            </Link>
+          )}
           <button
             type="button"
-            onClick={() =>
-              setIsMenuOpen(
-                (currentValue) => !currentValue,
-              )
-            }
+            onClick={() => setIsMenuOpen((currentValue) => !currentValue)}
             className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 text-gray-900"
             aria-expanded={isMenuOpen}
             aria-label="Toggle navigation menu"
@@ -222,56 +181,43 @@ export default function Navbar() {
             <i
               className={
                 isMenuOpen
-                  ? 'fa-solid fa-xmark text-xl'
-                  : 'fa-solid fa-bars text-xl'
+                  ? "fa-solid fa-xmark text-xl"
+                  : "fa-solid fa-bars text-xl"
               }
             />
           </button>
         </div>
       </div>
 
+      {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className="border-t border-gray-100 bg-white px-5 py-5 shadow-lg lg:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-2">
-            <NavLink
-              to="/"
-              end
-              className={navigationClass}
-            >
+            <NavLink to="/" end className={navigationClass}>
               Home
             </NavLink>
-
-            <NavLink
-              to="/menu"
-              className={navigationClass}
-            >
+            <NavLink to="/menu" className={navigationClass}>
               Explore Menu
             </NavLink>
-
-            <NavLink
-              to="/about"
-              className={navigationClass}
-            >
+            <NavLink to="/about" className={navigationClass}>
               About Us
             </NavLink>
 
-            {isAuthenticated && (
+            {isAuthenticated && isCustomer && (
               <>
-                <NavLink
-                  to="/dashboard"
-                  end
-                  className={navigationClass}
-                >
+                <NavLink to="/dashboard" end className={navigationClass}>
                   Dashboard
                 </NavLink>
-
-                <NavLink
-                  to="/dashboard/addresses"
-                  className={navigationClass}
-                >
+                <NavLink to="/dashboard/addresses" className={navigationClass}>
                   Saved Addresses
                 </NavLink>
               </>
+            )}
+
+            {isAuthenticated && isRestaurantOwner && (
+              <NavLink to="/dashboard/restaurant" className={navigationClass}>
+                Partner Dashboard
+              </NavLink>
             )}
 
             <div className="mt-3 border-t border-gray-100 pt-4">
@@ -279,40 +225,36 @@ export default function Navbar() {
                 <div className="h-12 animate-pulse rounded-xl bg-gray-200" />
               )}
 
-              {!isLoading
-                && !isAuthenticated && (
+              {!isLoading && !isAuthenticated && (
+                <Link
+                  to="/login"
+                  className="flex w-full items-center justify-center rounded-xl bg-black px-5 py-3 font-bold text-white"
+                >
+                  Login
+                </Link>
+              )}
+
+              {!isLoading && isAuthenticated && (
+                <div className="space-y-3">
                   <Link
-                    to="/login"
-                    className="flex w-full items-center justify-center rounded-xl bg-black px-5 py-3 font-bold text-white"
+                    to={
+                      isRestaurantOwner ? "/dashboard/restaurant" : "/dashboard"
+                    }
+                    className="block truncate rounded-xl bg-[#fff1ef] px-4 py-3 font-bold text-[#f45d52]"
                   >
-                    Login
+                    {accountName}
                   </Link>
-                )}
 
-              {!isLoading
-                && isAuthenticated && (
-                  <div className="space-y-3">
-                    <Link
-                      to="/dashboard"
-                      className="block truncate rounded-xl bg-[#fff1ef] px-4 py-3 font-bold text-[#f45d52]"
-                    >
-                      {accountName}
-                    </Link>
-
-                    <button
-                      type="button"
-                      onClick={() =>
-                        void handleLogout()
-                      }
-                      disabled={isLoggingOut}
-                      className="w-full rounded-xl bg-black px-5 py-3 font-bold text-white disabled:opacity-60"
-                    >
-                      {isLoggingOut
-                        ? 'Logging out...'
-                        : 'Logout'}
-                    </button>
-                  </div>
-                )}
+                  <button
+                    type="button"
+                    onClick={() => void handleLogout()}
+                    disabled={isLoggingOut}
+                    className="w-full rounded-xl bg-black px-5 py-3 font-bold text-white disabled:opacity-60"
+                  >
+                    {isLoggingOut ? "Logging out..." : "Logout"}
+                  </button>
+                </div>
+              )}
 
               {logoutError && (
                 <p className="mt-3 text-sm font-semibold text-red-600">

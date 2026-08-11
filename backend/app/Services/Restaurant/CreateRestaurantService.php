@@ -8,35 +8,30 @@ use App\Models\Account;
 use App\Models\Restaurant;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use LogicException;
-use App\Exceptions\RestaurantAlreadyExistsException;
 
-final class CreateRestaurantService{
-
+final class CreateRestaurantService
+{
     /**
      * @param array{
      *     name: string,
      *     description: string|null
      * } $attributes
-     *
-     * @throws AuthorizationException
-     * @throws LogicException
      */
+    public function create(Account $account, array $attributes): Restaurant
+    {
+        return DB::transaction(function () use ($attributes, $account): Restaurant {
+            $lockedAccount = Account::query()
+                ->whereKey($account->id)
+                ->lockForUpdate()
+                ->firstOrFail();
 
-    public function create(Account $account, array $attributes): Restaurant{
-        return DB::transaction(function () use ($attributes, $account) {
-            $lockedAccount = Account::query()->whereKey($account->id)->lockForUpdate()->firstOrFail();
-
-            if($lockedAccount->role !== AccountRole::RestaurantOwner || $lockedAccount->status !== AccountStatus::Active){
-                throw new AuthorizationException(
-                    'Only active restaurant owners can create a restaurant.'
-                );
+            if ($lockedAccount->role !== AccountRole::RestaurantOwner || $lockedAccount->status !== AccountStatus::Active) {
+                throw new AuthorizationException('Only active restaurant owners can create a restaurant.');
             }
 
-            if($lockedAccount->restaurant()->exists()){
+            if ($lockedAccount->restaurant()->exists()) {
                 throw new HttpResponseException(
                     response()->json([
                         'error' => [
@@ -49,9 +44,7 @@ final class CreateRestaurantService{
 
             $restaurant = $lockedAccount->restaurant()->create([
                 'name' => $attributes['name'],
-
-                'slug' =>$this->generateUniqueSlug($attributes['name']),
-
+                'slug' => $this->generateUniqueSlug($attributes['name']),
                 'description' => $attributes['description'],
             ]);
 
@@ -59,18 +52,18 @@ final class CreateRestaurantService{
         });
     }
 
-    private function generateUniqueSlug(string $name): string{
+    private function generateUniqueSlug(string $name): string
+    {
         $baseSlug = Str::slug($name);
 
-        if($baseSlug === ''){
+        if ($baseSlug === '') {
             $baseSlug = 'restaurant';
         }
 
         $slug = $baseSlug;
-
         $suffix = 2;
 
-        while(Restaurant::query()->where('slug', $slug)->exists()){
+        while (Restaurant::query()->where('slug', $slug)->exists()) {
             $slug = "{$baseSlug}-{$suffix}";
             $suffix++;
         }
@@ -78,4 +71,3 @@ final class CreateRestaurantService{
         return $slug;
     }
 }
-
