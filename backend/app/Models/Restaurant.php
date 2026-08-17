@@ -12,7 +12,12 @@ class Restaurant extends Model
 {
     protected $fillable = [
         'name', 'slug', 'description',
-        'owner_account_id'
+        'owner_account_id',
+        'contact_number', 'contact_email',
+        'address_line_1', 'address_line_2', 'landmark',
+        'city', 'state', 'pincode',
+        'latitude', 'longitude',
+        'fssai_license_number', 'gstin',
     ];
 
 

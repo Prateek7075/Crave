@@ -19,7 +19,7 @@ final class RegisterRestaurantOwnerRequest extends FormRequest{
         return [
             'name' => ['required', 'string', 'max:120'],
             'email' => ['required', 'email', 'max:254', 'unique:accounts,email'],
-            'mobile' => ['required', 'string', 'max:13'], // Ensure mobile is validated here
+            'mobile' => ['required', 'string', 'regex:/^\+91[6-9][0-9]{9}$/', 'unique:accounts,mobile'],
             'password' => ['required', 'string', 'min:8'],
         ];
     }
@@ -27,7 +27,8 @@ final class RegisterRestaurantOwnerRequest extends FormRequest{
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'full_name' => is_string($this->input('full_name')) ? trim($this->input('full_name')) : $this->input('full_name'),
+            'name' => is_string($this->input('name')) ? trim($this->input('name')) : $this->input('name'),
+            'mobile' => is_string($this->input('mobile')) ? trim($this->input('mobile')) : $this->input('mobile'),
             'email' => is_string($this->input('email')) ? mb_strtolower(trim($this->input('email'))) : $this->input('email'),
         ]);
     }

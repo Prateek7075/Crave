@@ -23,9 +23,24 @@ class RestaurantResource extends JsonResource
 
             'description' => $this->description,
 
-            'verificationStatus' => $this->verification_status->value,
+            'verificationStatus' => $this->verification_status,
 
-            'operatingStatus' => $this->operating_status->value,
+            'operatingStatus' => $this->operating_status,
+
+            'contactNumber' => $this->contact_number,
+            'contactEmail' => $this->contact_email,
+
+            'addressLine1' => $this->address_line_1,
+            'addressLine2' => $this->address_line_2,
+            'landmark' => $this->landmark,
+            'city' => $this->city,
+            'state' => $this->state,
+            'pincode' => $this->pincode,
+            'latitude' => $this->latitude !== null ? (float) $this->latitude : null,
+            'longitude' => $this->longitude !== null ? (float) $this->longitude : null,
+
+            'fssaiLicenseNumber' => $this->fssai_license_number,
+            'gstin' => $this->gstin,
 
             'submittedAt' => $this->submitted_at,
 

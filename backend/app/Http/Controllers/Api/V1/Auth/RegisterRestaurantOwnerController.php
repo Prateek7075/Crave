@@ -14,6 +14,7 @@ class RegisterRestaurantOwnerController extends Controller
         $account = $service->register($request->validated());
 
         auth()->login($account);
+        request()->session()->regenerate();
 
         return response()->json([
             'message' => 'Restaurant owner account registered successfully.',

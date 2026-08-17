@@ -13,6 +13,7 @@ class LoginRestaurantOwnerController extends Controller
         $account = $service->authenticate($request->validated());
 
         auth()->login($account);
+        request()->session()->regenerate();
 
         return response()->json([
             'message' => 'Logged in successfully.',

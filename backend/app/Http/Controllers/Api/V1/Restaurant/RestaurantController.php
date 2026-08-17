@@ -7,13 +7,14 @@ use App\Http\Requests\Api\V1\Restaurant\StoreRestaurantRequest;
 use App\Http\Requests\Api\V1\Restaurant\UpdateRestaurantRequest;
 use App\Services\Restaurant\CreateRestaurantService;
 use App\Services\Restaurant\UpdateRestaurantService;
+use App\Http\Resources\RestaurantResource;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 final class RestaurantController extends Controller
 {
     public function show() : JsonResponse
-        /** @var \App\Models\Account $account */
     {
+        /** @var \App\Models\Account $account */
         $account = auth()->user();
 
         $restaurant = $account->restaurant()->first();
@@ -28,14 +29,7 @@ final class RestaurantController extends Controller
         }
 
         return response()->json([
-            'data' => [
-                'id' => $restaurant->id,
-                'name' => $restaurant->name,
-                'slug' => $restaurant->slug,
-                'description' => $restaurant->description,
-                'verification_status' => $restaurant->verification_status,
-                'operating_status' => $restaurant->operating_status,
-            ]
+            'data' => new RestaurantResource($restaurant)
         ]);
     }
 
@@ -47,14 +41,7 @@ final class RestaurantController extends Controller
 
         return response()->json([
             'message' => 'Restaurant successfully created.',
-            'data' => [
-                'id' => $restaurant->id,
-                'name' => $restaurant->name,
-                'slug' => $restaurant->slug,
-                'description' => $restaurant->description,
-                'verification_status' => $restaurant->verification_status,
-                'operating_status' => $restaurant->operating_status,
-            ],
+            'data' => new RestaurantResource($restaurant),
         ], Response::HTTP_CREATED);
     }
 
@@ -62,18 +49,11 @@ final class RestaurantController extends Controller
         /** @var \App\Models\Account $account */
 
         $account = auth()->user();
-        $restaurant = $service->update($account, $request->validated());
+        $restaurant = $service->update($account, $request->toServiceAttributes());
 
         return response()->json([
             'message' => 'Restaurant updated successfully.',
-            'data' => [
-                'id' => $restaurant->id,
-                'name' => $restaurant->name,
-                'slug' => $restaurant->slug,
-                'description' => $restaurant->description,
-                'verification_status' => $restaurant->verification_status,
-                'operating_status' => $restaurant->operating_status,
-            ]
+            'data' => new RestaurantResource($restaurant)
         ]);
     }
 }

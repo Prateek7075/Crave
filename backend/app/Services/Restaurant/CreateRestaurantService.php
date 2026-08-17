@@ -38,7 +38,7 @@ final class CreateRestaurantService
             $restaurant = $lockedAccount->restaurant()->create([
                 'name' => $attributes['name'],
                 'slug' => $this->generateUniqueSlug($attributes['name']),
-                'description' => $attributes['description'],
+                'description' => $attributes['description'] ?? null,
             ]);
 
             return $restaurant->refresh();

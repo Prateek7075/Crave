@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\NoStoreApiResponses;
+use App\Http\Middleware\EnsureAccountRole;
 use App\Http\Middleware\AssignRequestId;
 use App\Exceptions\ApiException;
 use App\Exceptions\RestaurantAlreadyExistsException;
@@ -27,6 +29,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->statefulApi();
         $middleware->prepend(AssignRequestId::class);
+        $middleware->append(NoStoreApiResponses::class);
+        $middleware->alias([
+            'account.role' => EnsureAccountRole::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
 

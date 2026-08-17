@@ -12,7 +12,19 @@ final class UpdateRestaurantService{
     /**
      * @param array{
      *     name?: string,
-     *     description?: string|null
+     *     description?: string|null,
+     *     contact_number?: string|null,
+     *     contact_email?: string|null,
+     *     address_line_1?: string|null,
+     *     address_line_2?: string|null,
+     *     landmark?: string|null,
+     *     city?: string|null,
+     *     state?: string|null,
+     *     pincode?: string|null,
+     *     latitude?: float|null,
+     *     longitude?: float|null,
+     *     fssai_license_number?: string|null,
+     *     gstin?: string|null
      * } $attributes
      */
     public function update(Account $account, array $attributes): Restaurant{
@@ -26,8 +38,18 @@ final class UpdateRestaurantService{
                 $data['slug'] = $this->generateUniqueSlug($attributes['name'], $restaurant->id);
             }
 
-            if(array_key_exists('description', $attributes)){
-                $data['description'] = $attributes['description'];
+            $fields = [
+                'description', 'contact_number', 'contact_email',
+                'address_line_1', 'address_line_2', 'landmark',
+                'city', 'state', 'pincode',
+                'latitude', 'longitude',
+                'fssai_license_number', 'gstin'
+            ];
+
+            foreach ($fields as $field) {
+                if (array_key_exists($field, $attributes)) {
+                    $data[$field] = $attributes[$field];
+                }
             }
 
             if(!empty($data)){

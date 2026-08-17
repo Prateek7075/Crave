@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->prefix('customer')->group(function (): void {
     Route::delete('/addresses/{addressId}', [CustomerAddressController::class, 'destroy',],)->whereNumber('addressId');
     Route::put('/addresses/{addressId}', [CustomerAddressController::class, 'update',],)->whereNumber('addressId');
 });
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'account.role:RESTAURANT_OWNER'])->group(function () {
     Route::post('/restaurants', [RestaurantController::class, 'store']);
     Route::get('/restaurants/me', [RestaurantController::class, 'show']);
     Route::put('/restaurants/me', [RestaurantController::class, 'update']);
